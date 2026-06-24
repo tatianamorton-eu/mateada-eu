@@ -116,7 +116,7 @@ function Index() {
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:px-12">
           <a href="#top" className="flex items-center gap-3" aria-label="Mateada home">
-            <BrandMark className="h-8 w-8" />
+            <BrandMark className="h-16 w-16 sm:h-20 sm:w-20" />
             <span className="font-display text-2xl uppercase tracking-[0.24em] text-foreground sm:text-3xl">
               Mateada
             </span>
