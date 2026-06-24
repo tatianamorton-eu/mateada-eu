@@ -132,9 +132,7 @@ function Index() {
               </a>
             ))}
           </nav>
-          <p className="hidden text-sm uppercase tracking-[0.18em] text-muted-foreground lg:block">
-            Yerba mate, made simple.
-          </p>
+          <div className="hidden lg:block" aria-hidden="true" />
         </div>
         <nav aria-label="Mobile" className="flex overflow-x-auto border-t border-border/60 px-5 py-3 md:hidden">
           <div className="flex min-w-max gap-5">
