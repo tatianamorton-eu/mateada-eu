@@ -4,11 +4,11 @@ import { useState, type MouseEvent } from "react";
 import { cn } from "../lib/utils";
 import heroPowder from "../assets/hero-powder.jpg";
 import heroPlantation from "../assets/hero-plantation.jpg";
-import powderBandAsset from "../assets/mate-powder-band.asset.json";
+import powderBand from "../assets/mate-powder-band.png";
 import sachetFront from "../assets/sachet-1.jpg";
 import sachetAngle from "../assets/sachet-2.jpg";
 import sachetSide from "../assets/sachet-3.jpg";
-import boxAsset from "../assets/mateada-box.asset.json";
+import boxHero from "../assets/mateada-box.png";
 import boxFront from "../assets/box-1.jpg";
 import boxAngle from "../assets/box-2.jpg";
 import boxSide from "../assets/box-3.jpg";
@@ -235,12 +235,12 @@ function Index() {
 
       <section className="relative isolate overflow-hidden border-b border-border">
         <img
-          src={powderBandAsset.url}
+          src={powderBand}
           alt="Close-up of vibrant green yerba mate powder."
           className="h-[46svh] min-h-[320px] w-full object-cover"
           loading="lazy"
-          width={1600}
-          height={800}
+          width={663}
+          height={580}
         />
         <div className="absolute inset-0 bg-foreground/20" />
         <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-5 pb-10 text-center sm:px-8 lg:px-12">
@@ -319,7 +319,7 @@ function Index() {
               subtitle="Your home ritual"
               description="A full box for slower mornings and steady focus — with better value when you stock up."
               price="From €43"
-              images={[boxAsset.url, boxFront, boxAngle, boxSide]}
+              images={[boxHero, boxFront, boxAngle, boxSide]}
               altPrefix="Mateada sachet box"
               highlight
             />
