@@ -16,6 +16,7 @@ import ritualLatte from "../assets/ritual-latte.jpg";
 import ritualIced from "../assets/ritual-iced.jpg";
 import ritualGym from "../assets/ritual-gym.jpg";
 import ritualHot from "../assets/ritual-hot.jpg";
+import mateadaLogo from "../assets/mateada-logo.png.asset.json";
 
 const SITE_URL = "https://id-preview--2cf516a2-25e9-4ed8-86a2-71ef3a13b65d.lovable.app";
 
@@ -520,47 +521,13 @@ function ProductCard({
 
 function BrandMark({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 80 80" fill="none" className={className} aria-hidden="true">
-      {/* Bombilla (straw) */}
-      <path d="M30 8 L30 36" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-      <path d="M26 8 L34 8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-      {/* Mate gourd (cuia) */}
-      <path
-        d="M22 34 Q14 40 16 54 Q19 70 36 70 Q42 70 46 68"
-        stroke="currentColor"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path d="M38 34 Q44 36 47 41" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-      <path d="M22 34 Q30 31 38 34" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-      {/* Scattered yerba dots */}
-      {[
-        [48, 38], [52, 36], [56, 39], [50, 42], [54, 44], [58, 42],
-        [60, 46], [52, 48], [56, 50], [62, 50], [58, 54], [64, 54],
-        [54, 56], [60, 58], [66, 58], [56, 62], [62, 62], [68, 62],
-      ].map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r="0.9" fill="currentColor" />
-      ))}
-      {/* Leaf sprig */}
-      <path d="M46 70 Q56 70 66 64" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      <path
-        d="M52 70 Q54 64 50 60 Q46 64 52 70 Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-        fill="currentColor"
-        fillOpacity="0.18"
-      />
-      <path
-        d="M60 67 Q63 62 60 57 Q55 60 60 67 Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-        fill="currentColor"
-        fillOpacity="0.18"
-      />
-    </svg>
+    <img
+      src={mateadaLogo.url}
+      alt="Mateada"
+      className={cn("object-contain", className)}
+      loading="eager"
+      decoding="async"
+    />
   );
 }
 
