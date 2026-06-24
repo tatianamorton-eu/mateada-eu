@@ -179,53 +179,7 @@ function Index() {
             width={1536}
             height={1024}
           />
-          <div
-            className={cn(
-              "absolute inset-0 transition-colors duration-700",
-              showSource ? "bg-foreground/25" : "bg-background/10",
-            )}
-          />
-
-          <div className="relative mx-auto flex min-h-[86svh] max-w-[1600px] flex-col items-center justify-center px-5 py-20 text-center sm:px-8 lg:px-12">
-            <BrandMark className={cn("mb-5 h-40 w-40 sm:h-52 sm:w-52 md:h-60 md:w-60", showSource && "text-primary-foreground")} />
-            <p
-              className={cn(
-                "font-display text-[clamp(3.5rem,9vw,8rem)] uppercase leading-none tracking-[0.18em] [text-shadow:0_2px_18px_rgba(250,247,238,0.75)]",
-                showSource ? "text-primary-foreground" : "text-foreground",
-              )}
-            >
-              Mateada
-            </p>
-            <p
-              className={cn(
-                "mt-4 text-xs uppercase tracking-[0.32em] sm:text-sm [text-shadow:0_1px_10px_rgba(250,247,238,0.85)]",
-                showSource ? "text-primary-foreground/90" : "text-foreground/90",
-              )}
-            >
-              Fine-ground yerba mate
-            </p>
-            <div className="my-7 h-16 w-px bg-current/35" aria-hidden="true" />
-            <h1
-              className={cn(
-                "max-w-5xl font-sans text-2xl font-semibold uppercase tracking-[0.22em] sm:text-4xl md:text-5xl [text-shadow:0_2px_22px_rgba(250,247,238,0.9),0_0_40px_rgba(250,247,238,0.6)]",
-                showSource ? "text-primary-foreground" : "text-foreground",
-              )}
-            >
-              {showSource
-                ? "Source with care from Misiones, Argentina to you"
-                : "Natural energy that lasts"}
-            </h1>
-            <p
-              className={cn(
-                "mt-6 max-w-2xl text-sm font-semibold uppercase tracking-[0.16em] sm:text-base [text-shadow:0_1px_14px_rgba(250,247,238,0.85)]",
-                showSource ? "text-primary-foreground" : "text-primary",
-              )}
-            >
-              {showSource
-                ? "A slower ritual rooted in living green landscapes."
-                : "The first pure soluble yerba mate, crafted for wellness, clarity, and everyday ease."}
-            </p>
-          </div>
+          <div className="relative mx-auto min-h-[86svh] w-full max-w-[1600px]" aria-hidden="true" />
         </div>
       </section>
 
