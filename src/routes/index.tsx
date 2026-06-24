@@ -7,6 +7,8 @@ import heroPlantationAsset from "../assets/hero-plantation.png.asset.json";
 const heroPowder = heroPowderAsset.url;
 const heroPlantation = heroPlantationAsset.url;
 import powderBand from "../assets/mate-powder-band.png";
+import yerbaFreshAsset from "../assets/yerba-fresh.png.asset.json";
+const yerbaFresh = yerbaFreshAsset.url;
 import sachetFront from "../assets/sachet-1.jpg";
 import sachetAngle from "../assets/sachet-2.jpg";
 import sachetSide from "../assets/sachet-3.jpg";
@@ -185,57 +187,17 @@ function Index() {
 
       <section className="relative isolate overflow-hidden border-b border-border">
         <img
-          src={powderBand}
-          alt="Close-up of vibrant green yerba mate powder."
-          className="h-[46svh] min-h-[320px] w-full object-cover"
+          src={yerbaFresh}
+          alt="Fresh vibrant green yerba mate powder, close-up."
+          className="h-[60svh] min-h-[360px] w-full object-cover"
           loading="lazy"
-          width={663}
-          height={580}
+          width={1672}
+          height={940}
         />
-        <div className="absolute inset-0 bg-foreground/20" />
-        <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-5 pb-10 text-center sm:px-8 lg:px-12">
-          <div className="mb-6 h-16 w-px bg-primary-foreground/55" aria-hidden="true" />
-          <p className="font-display text-[clamp(2rem,6vw,4rem)] uppercase tracking-[0.18em] text-primary-foreground">
+        <div className="absolute inset-0 flex items-center justify-center px-5 text-center">
+          <p className="font-display text-[clamp(2rem,6vw,4.5rem)] uppercase tracking-[0.22em] text-primary-foreground [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]">
             From farm to cup
           </p>
-        </div>
-      </section>
-
-      <section id="benefits" className="border-b border-border bg-background px-5 py-18 sm:px-8 sm:py-24 lg:px-12">
-        <div className="mx-auto max-w-[1400px]">
-          <div className="text-center">
-            <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Pure yerba mate.</p>
-            <h2 className="mt-3 font-display text-[clamp(2rem,5vw,4rem)] uppercase tracking-[0.14em] text-foreground">
-              Nothing else.
-            </h2>
-          </div>
-
-          <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-            {benefits.map((benefit) => {
-              const Icon = benefit.icon;
-              return (
-                <article
-                  key={benefit.title}
-                  className="flex flex-col items-center border-t border-border pt-8 text-center xl:border-l xl:border-t-0 xl:pl-8 xl:first:border-l-0"
-                >
-                  <Icon className="h-8 w-8 text-foreground" />
-                  <h3 className="mt-6 text-sm font-medium uppercase tracking-[0.18em] text-foreground">
-                    {benefit.title}
-                  </h3>
-                  <p className="mt-3 text-sm uppercase tracking-[0.16em] text-muted-foreground">
-                    {benefit.body}
-                  </p>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="mt-16 flex flex-col items-center text-center">
-            <div className="mb-6 h-12 w-px bg-border" aria-hidden="true" />
-            <p className="max-w-3xl font-sans text-lg font-medium uppercase tracking-[0.2em] text-foreground sm:text-2xl">
-              Smooth taste. Clean energy. All day long.
-            </p>
-          </div>
         </div>
       </section>
 
@@ -276,6 +238,56 @@ function Index() {
           </div>
         </div>
       </section>
+
+      <section className="relative isolate overflow-hidden border-b border-border" aria-hidden="true">
+        <img
+          src={yerbaFresh}
+          alt=""
+          className="h-[50svh] min-h-[320px] w-full object-cover"
+          loading="lazy"
+          width={1672}
+          height={940}
+        />
+      </section>
+
+      <section id="benefits" className="border-b border-border bg-background px-5 py-18 sm:px-8 sm:py-24 lg:px-12">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="text-center">
+            <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Pure yerba mate.</p>
+            <h2 className="mt-3 font-display text-[clamp(2rem,5vw,4rem)] uppercase tracking-[0.14em] text-foreground">
+              Nothing else.
+            </h2>
+          </div>
+
+          <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+            {benefits.map((benefit) => {
+              const Icon = benefit.icon;
+              return (
+                <article
+                  key={benefit.title}
+                  className="flex flex-col items-center border-t border-border pt-8 text-center xl:border-l xl:border-t-0 xl:pl-8 xl:first:border-l-0"
+                >
+                  <Icon className="h-8 w-8 text-foreground" />
+                  <h3 className="mt-6 text-sm font-medium uppercase tracking-[0.18em] text-foreground">
+                    {benefit.title}
+                  </h3>
+                  <p className="mt-3 text-sm uppercase tracking-[0.16em] text-muted-foreground">
+                    {benefit.body}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="mt-16 flex flex-col items-center text-center">
+            <div className="mb-6 h-12 w-px bg-border" aria-hidden="true" />
+            <p className="max-w-3xl font-sans text-lg font-medium uppercase tracking-[0.2em] text-foreground sm:text-2xl">
+              Smooth taste. Clean energy. All day long.
+            </p>
+          </div>
+        </div>
+      </section>
+
 
       <section id="mate-guide" className="border-b border-border bg-card px-5 py-18 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-[1500px]">
