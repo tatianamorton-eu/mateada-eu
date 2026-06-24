@@ -17,6 +17,10 @@ import ritualIced from "../assets/ritual-iced.jpg";
 import ritualGym from "../assets/ritual-gym.jpg";
 import ritualHot from "../assets/ritual-hot.jpg";
 import mateadaLogo from "../assets/mateada-logo.png.asset.json";
+import heroSachet from "../assets/hero-sachet.png.asset.json";
+
+const heroTextShadow =
+  "[text-shadow:0_2px_6px_rgba(20,40,20,0.55),0_4px_22px_rgba(20,40,20,0.45),0_0_2px_rgba(20,40,20,0.6)]";
 
 const SITE_URL = "https://id-preview--2cf516a2-25e9-4ed8-86a2-71ef3a13b65d.lovable.app";
 
