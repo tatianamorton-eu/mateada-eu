@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type MouseEvent } from "react";
 
 import { cn } from "../lib/utils";
-import brandLogo from "../assets/mateada-logo.png.asset.json";
 import heroPowder from "../assets/hero-powder.jpg";
 import heroPlantation from "../assets/hero-plantation.jpg";
 import powderBand from "../assets/mate-powder-band.png";
@@ -17,7 +16,6 @@ import ritualLatte from "../assets/ritual-latte.jpg";
 import ritualIced from "../assets/ritual-iced.jpg";
 import ritualGym from "../assets/ritual-gym.jpg";
 import ritualHot from "../assets/ritual-hot.jpg";
-
 
 const SITE_URL = "https://id-preview--2cf516a2-25e9-4ed8-86a2-71ef3a13b65d.lovable.app";
 
@@ -116,14 +114,12 @@ function Index() {
     <main className="bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:px-12">
-          <a href="#top" className="flex items-center" aria-label="Mateada home">
-            <img
-              src={brandLogo.url}
-              alt="Mateada — fine-ground yerba mate"
-              className="h-12 w-auto sm:h-14"
-            />
+          <a href="#top" className="flex items-center gap-3" aria-label="Mateada home">
+            <BrandMark className="h-8 w-8" />
+            <span className="font-display text-2xl uppercase tracking-[0.24em] text-foreground sm:text-3xl">
+              Mateada
+            </span>
           </a>
-
           <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
             {navItems.map((item) => (
               <a
@@ -185,42 +181,55 @@ function Index() {
           <div
             className={cn(
               "absolute inset-0 transition-colors duration-700",
-              showSource ? "bg-foreground/40" : "bg-background/5",
+              showSource ? "bg-foreground/30" : "bg-background/22",
             )}
           />
 
-
           <div className="relative mx-auto flex min-h-[86svh] max-w-[1600px] flex-col items-center justify-center px-5 py-20 text-center sm:px-8 lg:px-12">
-            {!showSource && (
-              <img
-                src={brandLogo.url}
-                alt="Mateada — fine-ground yerba mate"
-                className="mb-10 h-32 w-auto sm:h-44 md:h-52"
-              />
-            )}
+            <BrandMark className={cn("mb-5 h-18 w-18 sm:h-22 sm:w-22", showSource && "text-primary-foreground")} />
+            <p
+              className={cn(
+                "font-display text-[clamp(3.5rem,9vw,8rem)] uppercase leading-none tracking-[0.18em]",
+                showSource ? "text-primary-foreground" : "text-foreground",
+              )}
+            >
+              Mateada
+            </p>
+            <p
+              className={cn(
+                "mt-4 text-xs uppercase tracking-[0.32em] sm:text-sm",
+                showSource ? "text-primary-foreground/90" : "text-foreground/90",
+              )}
+            >
+              Fine-ground yerba mate
+            </p>
+            <div className="my-7 h-16 w-px bg-current/35" aria-hidden="true" />
             <h1
               className={cn(
-                "max-w-5xl font-sans text-2xl font-semibold uppercase tracking-[0.22em] sm:text-4xl md:text-5xl",
-                showSource ? "text-primary-foreground" : "text-primary",
+                "max-w-5xl font-sans text-2xl font-medium uppercase tracking-[0.22em] sm:text-4xl md:text-5xl",
+                showSource ? "text-primary-foreground" : "text-foreground",
               )}
             >
               {showSource
                 ? "Source with care from Misiones, Argentina to you"
                 : "Natural energy that lasts"}
             </h1>
-            <div className="my-7 h-12 w-px bg-current/60" aria-hidden="true" />
             <p
               className={cn(
-                "max-w-2xl text-sm uppercase tracking-[0.22em] sm:text-base",
-                showSource ? "text-primary-foreground" : "text-primary",
+                "mt-6 max-w-2xl text-sm uppercase tracking-[0.16em] sm:text-base",
+                showSource ? "text-primary-foreground/85" : "text-muted-foreground",
               )}
             >
               {showSource
                 ? "A slower ritual rooted in living green landscapes."
-                : "Pure. Finely-ground. Soluble. Nothing else."}
+                : "The first pure soluble yerba mate, crafted for wellness, clarity, and everyday ease."}
             </p>
+            <div className="mt-10 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-current/75 sm:text-sm">
+              <span className="h-px w-10 bg-current/35" aria-hidden="true" />
+              Hover to reveal the source
+              <span className="h-px w-10 bg-current/35" aria-hidden="true" />
+            </div>
           </div>
-
         </div>
       </section>
 
