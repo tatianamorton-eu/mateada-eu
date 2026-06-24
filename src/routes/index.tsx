@@ -185,9 +185,10 @@ function Index() {
           <div
             className={cn(
               "absolute inset-0 transition-colors duration-700",
-              showSource ? "bg-foreground/30" : "bg-background/22",
+              showSource ? "bg-foreground/40" : "bg-background/5",
             )}
           />
+
 
           <div className="relative mx-auto flex min-h-[86svh] max-w-[1600px] flex-col items-center justify-center px-5 py-20 text-center sm:px-8 lg:px-12">
             {!showSource && (
