@@ -2,8 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, type MouseEvent } from "react";
 
 import { cn } from "../lib/utils";
-import heroPowder from "../assets/hero-powder.jpg";
-import heroPlantation from "../assets/hero-plantation.jpg";
+import heroPowderAsset from "../assets/hero-powder.png.asset.json";
+import heroPlantationAsset from "../assets/hero-plantation.png.asset.json";
+const heroPowder = heroPowderAsset.url;
+const heroPlantation = heroPlantationAsset.url;
 import powderBand from "../assets/mate-powder-band.png";
 import sachetFront from "../assets/sachet-1.jpg";
 import sachetAngle from "../assets/sachet-2.jpg";
