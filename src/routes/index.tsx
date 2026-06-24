@@ -181,7 +181,7 @@ function Index() {
             width={1536}
             height={1024}
           />
-          <div className="relative mx-auto min-h-[68svh] w-full max-w-[1600px]" aria-hidden="true" />
+          <div className="relative mx-auto min-h-[86svh] w-full max-w-[1600px]" aria-hidden="true" />
         </div>
       </section>
 
