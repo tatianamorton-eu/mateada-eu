@@ -90,6 +90,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Mateada" },
+      { name: "description", content: "Mateada offers pure, soluble yerba mate, promoting natural energy and a slow-life philosophy." },
+      { property: "og:description", content: "Mateada offers pure, soluble yerba mate, promoting natural energy and a slow-life philosophy." },
+      { name: "twitter:description", content: "Mateada offers pure, soluble yerba mate, promoting natural energy and a slow-life philosophy." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4a2440e2-0fd0-4c7d-9718-ace6fa33bc8f/id-preview-3e34456f--2cf516a2-25e9-4ed8-86a2-71ef3a13b65d.lovable.app-1782290283762.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4a2440e2-0fd0-4c7d-9718-ace6fa33bc8f/id-preview-3e34456f--2cf516a2-25e9-4ed8-86a2-71ef3a13b65d.lovable.app-1782290283762.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
