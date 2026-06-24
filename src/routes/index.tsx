@@ -188,13 +188,13 @@ function Index() {
             )}
           />
 
-          <div className="relative mx-auto flex min-h-[86svh] max-w-[1600px] flex-col items-center justify-center px-5 py-20 text-center sm:px-8 lg:px-12">
           <img
             src={heroSachet.url}
             alt="Mateada fine-ground yerba mate sachet."
             className="pointer-events-none absolute left-4 top-1/2 z-10 hidden w-40 -translate-y-1/2 -rotate-12 drop-shadow-[0_24px_40px_rgba(20,40,20,0.45)] sm:block md:left-10 md:w-56 lg:w-64"
             loading="lazy"
           />
+
 
           <div className="relative mx-auto flex min-h-[86svh] max-w-[1600px] flex-col items-center justify-center px-5 py-20 text-center sm:px-8 lg:px-12">
             <BrandMark className={cn("mb-5 h-40 w-40 drop-shadow-[0_3px_10px_rgba(20,40,20,0.55)] sm:h-52 sm:w-52 md:h-60 md:w-60", showSource && "text-primary-foreground")} />
