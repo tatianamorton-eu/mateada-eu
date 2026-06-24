@@ -521,45 +521,44 @@ function ProductCard({
 function BrandMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 80 80" fill="none" className={className} aria-hidden="true">
+      {/* Bombilla (straw) */}
+      <path d="M30 8 L30 36" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+      <path d="M26 8 L34 8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+      {/* Mate gourd (cuia) */}
       <path
-        d="M29 15c3 5 4 9 4 13v8c0 2-1 4-3 5-5 4-8 9-8 15 0 9 7 16 18 16 10 0 18-7 18-16 0-7-4-12-9-15-2-1-3-3-3-5V28c0-5 1-9 4-13"
+        d="M22 34 Q14 40 16 54 Q19 70 36 70 Q42 70 46 68"
         stroke="currentColor"
-        strokeWidth="2.2"
+        strokeWidth="2.4"
         strokeLinecap="round"
-      />
-      <path d="M29 23h22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.55" />
-      <path
-        d="M51 50c6 1 10 6 10 12"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M56 45c5-1 10 1 13 5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        opacity="0.8"
-      />
-      <path
-        d="M60 41c4-2 9-1 13 2"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        opacity="0.6"
-      />
-      <path d="M59 49c-3 3-5 7-5 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path
-        d="M63 46c2 0 4 1 5 3-2 2-5 3-8 2 0-2 1-4 3-5Z"
-        stroke="currentColor"
-        strokeWidth="2"
         strokeLinejoin="round"
       />
+      <path d="M38 34 Q44 36 47 41" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+      <path d="M22 34 Q30 31 38 34" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
+      {/* Scattered yerba dots */}
+      {[
+        [48, 38], [52, 36], [56, 39], [50, 42], [54, 44], [58, 42],
+        [60, 46], [52, 48], [56, 50], [62, 50], [58, 54], [64, 54],
+        [54, 56], [60, 58], [66, 58], [56, 62], [62, 62], [68, 62],
+      ].map(([cx, cy], i) => (
+        <circle key={i} cx={cx} cy={cy} r="0.9" fill="currentColor" />
+      ))}
+      {/* Leaf sprig */}
+      <path d="M46 70 Q56 70 66 64" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       <path
-        d="M54 57c2 0 4 1 5 3-2 2-5 3-8 2 0-2 1-4 3-5Z"
+        d="M52 70 Q54 64 50 60 Q46 64 52 70 Z"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="1.6"
         strokeLinejoin="round"
+        fill="currentColor"
+        fillOpacity="0.18"
+      />
+      <path
+        d="M60 67 Q63 62 60 57 Q55 60 60 67 Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+        fill="currentColor"
+        fillOpacity="0.18"
       />
     </svg>
   );
