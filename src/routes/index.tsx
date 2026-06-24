@@ -116,7 +116,7 @@ function Index() {
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:px-12">
           <a href="#top" className="flex items-center gap-3" aria-label="Mateada home">
-            <BrandMark className="h-16 w-16 sm:h-20 sm:w-20" />
+            <BrandMark className="h-24 w-24 sm:h-28 sm:w-28" />
             <span className="font-display text-2xl uppercase tracking-[0.24em] text-foreground sm:text-3xl">
               Mateada
             </span>
@@ -182,12 +182,12 @@ function Index() {
           <div
             className={cn(
               "absolute inset-0 transition-colors duration-700",
-              showSource ? "bg-foreground/30" : "bg-background/22",
+              showSource ? "bg-foreground/25" : "bg-background/10",
             )}
           />
 
           <div className="relative mx-auto flex min-h-[86svh] max-w-[1600px] flex-col items-center justify-center px-5 py-20 text-center sm:px-8 lg:px-12">
-            <BrandMark className={cn("mb-5 h-18 w-18 sm:h-22 sm:w-22", showSource && "text-primary-foreground")} />
+            <BrandMark className={cn("mb-5 h-40 w-40 sm:h-52 sm:w-52 md:h-60 md:w-60", showSource && "text-primary-foreground")} />
             <p
               className={cn(
                 "font-display text-[clamp(3.5rem,9vw,8rem)] uppercase leading-none tracking-[0.18em]",
@@ -217,19 +217,14 @@ function Index() {
             </h1>
             <p
               className={cn(
-                "mt-6 max-w-2xl text-sm uppercase tracking-[0.16em] sm:text-base",
-                showSource ? "text-primary-foreground/85" : "text-muted-foreground",
+                "mt-6 max-w-2xl text-sm font-semibold uppercase tracking-[0.16em] sm:text-base",
+                showSource ? "text-primary-foreground" : "text-primary",
               )}
             >
               {showSource
                 ? "A slower ritual rooted in living green landscapes."
                 : "The first pure soluble yerba mate, crafted for wellness, clarity, and everyday ease."}
             </p>
-            <div className="mt-10 flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-current/75 sm:text-sm">
-              <span className="h-px w-10 bg-current/35" aria-hidden="true" />
-              Hover to reveal the source
-              <span className="h-px w-10 bg-current/35" aria-hidden="true" />
-            </div>
           </div>
         </div>
       </section>
