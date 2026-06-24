@@ -7,6 +7,8 @@ import heroPlantationAsset from "../assets/hero-plantation.png.asset.json";
 const heroPowder = heroPowderAsset.url;
 const heroPlantation = heroPlantationAsset.url;
 import powderBand from "../assets/mate-powder-band.png";
+import yerbaFreshAsset from "../assets/yerba-fresh.png.asset.json";
+const yerbaFresh = yerbaFreshAsset.url;
 import sachetFront from "../assets/sachet-1.jpg";
 import sachetAngle from "../assets/sachet-2.jpg";
 import sachetSide from "../assets/sachet-3.jpg";
