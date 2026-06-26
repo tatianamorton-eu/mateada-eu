@@ -15,10 +15,10 @@ import boxHeroAsset from "../assets/mateada-box-v2.png.asset.json";
 const sachetSingle = sachetSingleAsset.url;
 const yerbaBag = yerbaBagAsset.url;
 const boxHero = boxHeroAsset.url;
-import ritualLatte from "../assets/ritual-latte.jpg";
-import ritualIced from "../assets/ritual-iced.jpg";
-import ritualGym from "../assets/ritual-gym.jpg";
-import ritualHot from "../assets/ritual-hot.jpg";
+import momentLatteAsset from "../assets/moment-latte.png.asset.json";
+import momentGymAsset from "../assets/moment-gym.png.asset.json";
+const momentLatte = momentLatteAsset.url;
+const momentGym = momentGymAsset.url;
 import mateadaLogo from "../assets/mateada-logo.png.asset.json";
 
 const SITE_URL = "https://id-preview--2cf516a2-25e9-4ed8-86a2-71ef3a13b65d.lovable.app";
@@ -86,28 +86,16 @@ const benefits = [
 
 const guideCards = [
   {
-    title: "Mate latte",
-    description: "Smooth, creamy, slow mornings.",
-    image: ritualLatte,
-    alt: "Mate latte in a ceramic cup on soft fabric.",
+    title: "Slow morning ritual",
+    description: "A warm mate latte to begin the day calm, centred and ready.",
+    image: momentLatte,
+    alt: "Woman in soft green activewear stirring a warm mate latte beside a Mateada pouch.",
   },
   {
-    title: "Iced mate",
-    description: "Bright, chilled, and refreshing.",
-    image: ritualIced,
-    alt: "Iced green yerba mate in a clear glass.",
-  },
-  {
-    title: "Hot and simple",
-    description: "Warm water, clean focus, no extras.",
-    image: ritualHot,
-    alt: "Steaming cup of hot yerba mate beside an open book.",
-  },
-  {
-    title: "Just with water",
-    description: "Your on-the-go daily ritual.",
-    image: ritualGym,
-    alt: "Mate sachet and water bottle on a gym bench.",
+    title: "Mateada at the gym",
+    description: "Cold-shaken mate in your bottle for clean, lasting energy through every session.",
+    image: momentGym,
+    alt: "Athlete drinking iced Mateada from a glass bottle after a workout.",
   },
 ] as const;
 
@@ -315,7 +303,7 @@ function Index() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
             {guideCards.map((card) => (
               <article key={card.title} className="overflow-hidden border border-border bg-background">
                 <img
