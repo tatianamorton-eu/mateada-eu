@@ -246,7 +246,7 @@ function Index() {
         <img
           src={yerbaFresh}
           alt=""
-          className="h-[50svh] min-h-[320px] w-full object-cover"
+          className="h-[32svh] min-h-[220px] w-full object-cover sm:h-[50svh] sm:min-h-[320px]"
           loading="lazy"
           width={1672}
           height={940}
