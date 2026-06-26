@@ -292,7 +292,7 @@ function Index() {
       </section>
 
 
-      <section id="mate-guide" className="border-b border-border bg-card px-5 py-18 sm:px-8 sm:py-24 lg:px-12">
+      <section id="mate-guide" className="border-b border-border bg-card px-4 py-14 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-[1500px]">
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Mate guide</p>
