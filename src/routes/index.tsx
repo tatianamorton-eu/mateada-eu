@@ -448,11 +448,11 @@ function ProductCard({
           {title}
         </h3>
 
-        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-background/4">
+        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-gradient-to-b from-background to-background/90 p-6 sm:p-10">
           <img
             src={image}
             alt={altPrefix}
-            className="aspect-[4/5] w-full object-cover"
+            className="mx-auto aspect-[4/5] w-full object-contain mix-blend-multiply"
             loading="lazy"
             width={1024}
             height={1280}
