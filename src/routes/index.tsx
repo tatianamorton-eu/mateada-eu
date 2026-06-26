@@ -206,35 +206,49 @@ function Index() {
             <div>
               <p className="text-sm uppercase tracking-[0.18em] text-primary-foreground/70">Shop</p>
               <h2 className="mt-3 max-w-4xl font-display text-[clamp(2.5rem,5vw,4.5rem)] uppercase tracking-[0.12em] text-primary-foreground">
-                Two simple ways to drink Mateada.
+                Three simple ways to drink Mateada.
               </h2>
             </div>
             <p className="max-w-xl text-sm uppercase tracking-[0.16em] text-primary-foreground/75">
-              Hover across each product to move through its 360-style view.
+              Buy once or subscribe and save on every refill.
             </p>
           </div>
 
-          <div className="mt-10 grid gap-8 xl:grid-cols-2">
+          <div className="mt-10 grid gap-8 lg:grid-cols-3">
             <ProductCard
               badge="Single serve"
-              title="Daily Sachets"
+              title="Single Sachet"
               subtitle="Fine-ground yerba mate"
-              description="Pure soluble mate in an easy everyday format for water, latte, iced, or hot rituals."
-              price="From €24"
-              images={[sachetFront, sachetAngle, sachetSide]}
-              altPrefix="Mateada sachet"
+              description="One pure stick to try the ritual — perfect for water, latte, iced, or hot."
+              price="€2"
+              image={sachetSingle}
+              altPrefix="Mateada single sachet"
             />
             <ProductCard
-              badge="10% less in bulk"
+              badge="Best value"
               title="Box of 20 Sachets"
               subtitle="Your home ritual"
-              description="A full box for slower mornings and steady focus — with better value when you stock up."
-              price="From €43"
-              images={[boxHero, boxFront, boxAngle, boxSide]}
+              description="A full box for slower mornings and steady focus — buy once or subscribe and save."
+              price="€36"
+              subscribePrice="€32 / month"
+              image={boxHero}
               altPrefix="Mateada sachet box"
               highlight
+              subscribable
+            />
+            <ProductCard
+              badge="Loose powder"
+              title="Yerba Mate Bag"
+              subtitle="20 servings, refill format"
+              description="Fine-ground pure yerba mate in a resealable pouch — flexible scoops, less packaging."
+              price="€30"
+              subscribePrice="€27 / month"
+              image={yerbaBag}
+              altPrefix="Mateada yerba mate pouch"
+              subscribable
             />
           </div>
+
         </div>
       </section>
 
