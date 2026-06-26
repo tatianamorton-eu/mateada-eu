@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type MouseEvent } from "react";
+import { useState } from "react";
 
 import { cn } from "../lib/utils";
 import heroPowderAsset from "../assets/hero-powder.png.asset.json";
