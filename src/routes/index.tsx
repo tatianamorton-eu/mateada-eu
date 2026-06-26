@@ -176,17 +176,18 @@ function Index() {
         <img
           src={yerbaFresh}
           alt="Fresh vibrant green yerba mate powder, close-up."
-          className="h-[60svh] min-h-[360px] w-full object-cover"
+          className="h-[40svh] min-h-[260px] w-full object-cover sm:h-[60svh] sm:min-h-[360px]"
           loading="lazy"
           width={1672}
           height={940}
         />
         <div className="absolute inset-0 flex items-center justify-center px-5 text-center">
-          <p className="font-display text-[clamp(2rem,6vw,4.5rem)] uppercase tracking-[0.22em] text-primary-foreground [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]">
+          <p className="font-display text-[clamp(1.5rem,7vw,4.5rem)] uppercase tracking-[0.14em] text-primary-foreground [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] sm:tracking-[0.22em]">
             From farm to cup
           </p>
         </div>
       </section>
+
 
       <section id="shop" className="bg-primary px-5 py-18 text-primary-foreground sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-[1500px]">
