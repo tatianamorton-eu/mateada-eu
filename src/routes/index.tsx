@@ -105,10 +105,10 @@ function Index() {
   return (
     <main className="bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:px-12">
-          <a href="#top" className="flex items-center gap-3" aria-label="Mateada home">
-            <BrandMark className="h-24 w-24 sm:h-28 sm:w-28" />
-            <span className="font-display text-2xl uppercase tracking-[0.24em] text-foreground sm:text-3xl">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-3 sm:gap-6 sm:px-8 sm:py-4 lg:px-12">
+          <a href="#top" className="flex min-w-0 items-center gap-2 sm:gap-3" aria-label="Mateada home">
+            <BrandMark className="h-12 w-12 shrink-0 sm:h-20 sm:w-20 lg:h-28 lg:w-28" />
+            <span className="truncate font-display text-lg uppercase tracking-[0.18em] text-foreground sm:text-2xl sm:tracking-[0.24em] lg:text-3xl">
               Mateada
             </span>
           </a>
@@ -168,7 +168,7 @@ function Index() {
             width={1536}
             height={1024}
           />
-          <div className="relative mx-auto min-h-[86svh] w-full max-w-[1600px]" aria-hidden="true" />
+          <div className="relative mx-auto min-h-[60svh] w-full max-w-[1600px] sm:min-h-[86svh]" aria-hidden="true" />
         </div>
       </section>
 
@@ -176,24 +176,25 @@ function Index() {
         <img
           src={yerbaFresh}
           alt="Fresh vibrant green yerba mate powder, close-up."
-          className="h-[60svh] min-h-[360px] w-full object-cover"
+          className="h-[40svh] min-h-[260px] w-full object-cover sm:h-[60svh] sm:min-h-[360px]"
           loading="lazy"
           width={1672}
           height={940}
         />
         <div className="absolute inset-0 flex items-center justify-center px-5 text-center">
-          <p className="font-display text-[clamp(2rem,6vw,4.5rem)] uppercase tracking-[0.22em] text-primary-foreground [text-shadow:0_2px_24px_rgba(0,0,0,0.45)]">
+          <p className="font-display text-[clamp(1.5rem,7vw,4.5rem)] uppercase tracking-[0.14em] text-primary-foreground [text-shadow:0_2px_24px_rgba(0,0,0,0.45)] sm:tracking-[0.22em]">
             From farm to cup
           </p>
         </div>
       </section>
 
-      <section id="shop" className="bg-primary px-5 py-18 text-primary-foreground sm:px-8 sm:py-24 lg:px-12">
+
+      <section id="shop" className="bg-primary px-4 py-14 text-primary-foreground sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-[1500px]">
           <div className="flex flex-col gap-4 border-b border-primary-foreground/20 pb-10 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm uppercase tracking-[0.18em] text-primary-foreground/70">Shop</p>
-              <h2 className="mt-3 max-w-4xl font-display text-[clamp(2.5rem,5vw,4.5rem)] uppercase tracking-[0.12em] text-primary-foreground">
+              <h2 className="mt-3 max-w-4xl font-display text-[clamp(1.85rem,5vw,4.5rem)] uppercase tracking-[0.08em] text-primary-foreground sm:tracking-[0.12em]">
                 Three simple ways to drink Mateada.
               </h2>
             </div>
@@ -245,14 +246,14 @@ function Index() {
         <img
           src={yerbaFresh}
           alt=""
-          className="h-[50svh] min-h-[320px] w-full object-cover"
+          className="h-[32svh] min-h-[220px] w-full object-cover sm:h-[50svh] sm:min-h-[320px]"
           loading="lazy"
           width={1672}
           height={940}
         />
       </section>
 
-      <section id="benefits" className="border-b border-border bg-background px-5 py-18 sm:px-8 sm:py-24 lg:px-12">
+      <section id="benefits" className="border-b border-border bg-background px-4 py-14 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-[1400px]">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Pure yerba mate.</p>
@@ -291,7 +292,7 @@ function Index() {
       </section>
 
 
-      <section id="mate-guide" className="border-b border-border bg-card px-5 py-18 sm:px-8 sm:py-24 lg:px-12">
+      <section id="mate-guide" className="border-b border-border bg-card px-4 py-14 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-[1500px]">
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Mate guide</p>
@@ -397,7 +398,7 @@ function ProductCard({
         <p className="max-w-xl text-sm text-primary-foreground/80 sm:text-base">{description}</p>
 
         {subscribable && subscribePrice ? (
-          <div className="mt-6 grid grid-cols-2 gap-2" role="tablist" aria-label="Purchase option">
+          <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2" role="tablist" aria-label="Purchase option">
             <button
               type="button"
               role="tab"
