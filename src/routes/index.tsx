@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type MouseEvent } from "react";
+import { useState } from "react";
 
 import { cn } from "../lib/utils";
 import heroPowderAsset from "../assets/hero-powder.png.asset.json";
@@ -9,13 +9,12 @@ const heroPlantation = heroPlantationAsset.url;
 import powderBand from "../assets/mate-powder-band.png";
 import yerbaFreshAsset from "../assets/yerba-fresh.png.asset.json";
 const yerbaFresh = yerbaFreshAsset.url;
-import sachetFront from "../assets/sachet-1.jpg";
-import sachetAngle from "../assets/sachet-2.jpg";
-import sachetSide from "../assets/sachet-3.jpg";
-import boxHero from "../assets/mateada-box.png";
-import boxFront from "../assets/box-1.jpg";
-import boxAngle from "../assets/box-2.jpg";
-import boxSide from "../assets/box-3.jpg";
+import sachetSingleAsset from "../assets/sachet-single.png.asset.json";
+import yerbaBagAsset from "../assets/yerba-bag.png.asset.json";
+import boxHeroAsset from "../assets/mateada-box.asset.json";
+const sachetSingle = sachetSingleAsset.url;
+const yerbaBag = yerbaBagAsset.url;
+const boxHero = boxHeroAsset.url;
 import ritualLatte from "../assets/ritual-latte.jpg";
 import ritualIced from "../assets/ritual-iced.jpg";
 import ritualGym from "../assets/ritual-gym.jpg";
@@ -207,35 +206,49 @@ function Index() {
             <div>
               <p className="text-sm uppercase tracking-[0.18em] text-primary-foreground/70">Shop</p>
               <h2 className="mt-3 max-w-4xl font-display text-[clamp(2.5rem,5vw,4.5rem)] uppercase tracking-[0.12em] text-primary-foreground">
-                Two simple ways to drink Mateada.
+                Three simple ways to drink Mateada.
               </h2>
             </div>
             <p className="max-w-xl text-sm uppercase tracking-[0.16em] text-primary-foreground/75">
-              Hover across each product to move through its 360-style view.
+              Buy once or subscribe and save on every refill.
             </p>
           </div>
 
-          <div className="mt-10 grid gap-8 xl:grid-cols-2">
+          <div className="mt-10 grid gap-8 lg:grid-cols-3">
             <ProductCard
               badge="Single serve"
-              title="Daily Sachets"
+              title="Single Sachet"
               subtitle="Fine-ground yerba mate"
-              description="Pure soluble mate in an easy everyday format for water, latte, iced, or hot rituals."
-              price="From €24"
-              images={[sachetFront, sachetAngle, sachetSide]}
-              altPrefix="Mateada sachet"
+              description="One pure stick to try the ritual — perfect for water, latte, iced, or hot."
+              price="€2"
+              image={sachetSingle}
+              altPrefix="Mateada single sachet"
             />
             <ProductCard
-              badge="10% less in bulk"
+              badge="Best value"
               title="Box of 20 Sachets"
               subtitle="Your home ritual"
-              description="A full box for slower mornings and steady focus — with better value when you stock up."
-              price="From €43"
-              images={[boxHero, boxFront, boxAngle, boxSide]}
+              description="A full box for slower mornings and steady focus — buy once or subscribe and save."
+              price="€36"
+              subscribePrice="€32 / month"
+              image={boxHero}
               altPrefix="Mateada sachet box"
               highlight
+              subscribable
+            />
+            <ProductCard
+              badge="Loose powder"
+              title="Yerba Mate Bag"
+              subtitle="20 servings, refill format"
+              description="Fine-ground pure yerba mate in a resealable pouch — flexible scoops, less packaging."
+              price="€30"
+              subscribePrice="€27 / month"
+              image={yerbaBag}
+              altPrefix="Mateada yerba mate pouch"
+              subscribable
             />
           </div>
+
         </div>
       </section>
 
@@ -391,27 +404,24 @@ function ProductCard({
   subtitle,
   description,
   price,
-  images,
+  subscribePrice,
+  image,
   altPrefix,
   highlight = false,
+  subscribable = false,
 }: {
   badge: string;
   title: string;
   subtitle: string;
   description: string;
   price: string;
-  images: string[];
+  subscribePrice?: string;
+  image: string;
   altPrefix: string;
   highlight?: boolean;
+  subscribable?: boolean;
 }) {
-  const [frameIndex, setFrameIndex] = useState(0);
-
-  const handleMove = (event: MouseEvent<HTMLDivElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const ratio = (event.clientX - bounds.left) / bounds.width;
-    const nextIndex = Math.max(0, Math.min(images.length - 1, Math.floor(ratio * images.length)));
-    setFrameIndex(nextIndex);
-  };
+  const [mode, setMode] = useState<"once" | "subscribe">("once");
 
   return (
     <article
@@ -430,32 +440,17 @@ function ProductCard({
           >
             {badge}
           </span>
-          <div className="flex gap-2" aria-hidden="true">
-            {images.map((_, index) => (
-              <span
-                key={index}
-                className={cn(
-                  "h-1.5 w-8 rounded-full transition-colors",
-                  frameIndex === index ? "bg-primary-foreground" : "bg-primary-foreground/25",
-                )}
-              />
-            ))}
-          </div>
         </div>
 
         <p className="mt-8 text-sm uppercase tracking-[0.18em] text-primary-foreground/70">{subtitle}</p>
-        <h3 className="mt-3 max-w-sm font-display text-[clamp(2.4rem,4vw,4.2rem)] uppercase leading-[0.95] tracking-[0.1em] text-primary-foreground">
+        <h3 className="mt-3 max-w-sm font-display text-[clamp(2rem,3vw,3rem)] uppercase leading-[0.95] tracking-[0.1em] text-primary-foreground">
           {title}
         </h3>
 
-        <div
-          className="mt-8 overflow-hidden border border-primary-foreground/16 bg-background/4"
-          onMouseMove={handleMove}
-          onMouseLeave={() => setFrameIndex(0)}
-        >
+        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-background/4">
           <img
-            src={images[frameIndex]}
-            alt={`${altPrefix} view ${frameIndex + 1}`}
+            src={image}
+            alt={altPrefix}
             className="aspect-[4/5] w-full object-cover"
             loading="lazy"
             width={1024}
@@ -466,19 +461,56 @@ function ProductCard({
 
       <div className="mt-8 border-t border-primary-foreground/16 pt-6">
         <p className="max-w-xl text-sm text-primary-foreground/80 sm:text-base">{description}</p>
-        <div className="mt-7 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <a
-            href="#top"
-            className="inline-flex w-fit items-center justify-center border border-primary-foreground/30 px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-80"
+
+        {subscribable && subscribePrice ? (
+          <div className="mt-6 grid grid-cols-2 gap-2" role="tablist" aria-label="Purchase option">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === "once"}
+              onClick={() => setMode("once")}
+              className={cn(
+                "border px-3 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors",
+                mode === "once"
+                  ? "border-primary-foreground bg-primary-foreground text-primary"
+                  : "border-primary-foreground/30 text-primary-foreground/80 hover:border-primary-foreground/60",
+              )}
+            >
+              One-time · {price}
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === "subscribe"}
+              onClick={() => setMode("subscribe")}
+              className={cn(
+                "border px-3 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors",
+                mode === "subscribe"
+                  ? "border-primary-foreground bg-primary-foreground text-primary"
+                  : "border-primary-foreground/30 text-primary-foreground/80 hover:border-primary-foreground/60",
+              )}
+            >
+              Subscribe · {subscribePrice}
+            </button>
+          </div>
+        ) : null}
+
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <button
+            type="button"
+            className="inline-flex w-fit items-center justify-center border border-primary-foreground bg-primary-foreground px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-primary transition-opacity hover:opacity-90"
           >
-            Explore product
-          </a>
-          <p className="text-sm uppercase tracking-[0.18em] text-primary-foreground/80">{price}</p>
+            {subscribable && mode === "subscribe" ? "Subscribe" : "Buy now"}
+          </button>
+          <p className="text-sm uppercase tracking-[0.18em] text-primary-foreground/80">
+            {subscribable && mode === "subscribe" && subscribePrice ? subscribePrice : price}
+          </p>
         </div>
       </div>
     </article>
   );
 }
+
 
 function BrandMark({ className }: { className?: string }) {
   return (
