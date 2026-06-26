@@ -194,7 +194,7 @@ function Index() {
           <div className="flex flex-col gap-4 border-b border-primary-foreground/20 pb-10 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm uppercase tracking-[0.18em] text-primary-foreground/70">Shop</p>
-              <h2 className="mt-3 max-w-4xl font-display text-[clamp(2.5rem,5vw,4.5rem)] uppercase tracking-[0.12em] text-primary-foreground">
+              <h2 className="mt-3 max-w-4xl font-display text-[clamp(1.85rem,5vw,4.5rem)] uppercase tracking-[0.08em] text-primary-foreground sm:tracking-[0.12em]">
                 Three simple ways to drink Mateada.
               </h2>
             </div>
