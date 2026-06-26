@@ -220,7 +220,7 @@ function Index() {
               title="Single Sachet"
               subtitle="Fine-ground yerba mate"
               description="One pure stick to try the ritual — perfect for water, latte, iced, or hot."
-              price="€2"
+              price="€1"
               image={sachetSingle}
               altPrefix="Mateada single sachet"
             />
@@ -228,9 +228,9 @@ function Index() {
               badge="Best value"
               title="Box of 20 Sachets"
               subtitle="Your home ritual"
-              description="A full box for slower mornings and steady focus — buy once or subscribe and save."
-              price="€36"
-              subscribePrice="€32 / month"
+              description="A full box for slower mornings and steady focus — buy once or subscribe and save 10%."
+              price="€17.99"
+              subscribePrice="€16.19 / month"
               image={boxHero}
               altPrefix="Mateada sachet box"
               highlight
@@ -241,12 +241,13 @@ function Index() {
               title="Yerba Mate Bag"
               subtitle="20 servings, refill format"
               description="Fine-ground pure yerba mate in a resealable pouch — flexible scoops, less packaging."
-              price="€30"
-              subscribePrice="€27 / month"
+              price="€15.99"
+              subscribePrice="€14.39 / month"
               image={yerbaBag}
               altPrefix="Mateada yerba mate pouch"
               subscribable
             />
+
           </div>
 
         </div>
@@ -447,11 +448,11 @@ function ProductCard({
           {title}
         </h3>
 
-        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-background/4">
+        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-gradient-to-b from-background to-background/90 p-6 sm:p-10">
           <img
             src={image}
             alt={altPrefix}
-            className="aspect-[4/5] w-full object-cover"
+            className="mx-auto aspect-[4/5] w-full object-contain mix-blend-multiply"
             loading="lazy"
             width={1024}
             height={1280}
