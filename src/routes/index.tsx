@@ -303,7 +303,7 @@ function Index() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
             {guideCards.map((card) => (
               <article key={card.title} className="overflow-hidden border border-border bg-background">
                 <img
