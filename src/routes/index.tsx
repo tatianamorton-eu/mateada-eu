@@ -86,28 +86,16 @@ const benefits = [
 
 const guideCards = [
   {
-    title: "Mate latte",
-    description: "Smooth, creamy, slow mornings.",
-    image: ritualLatte,
-    alt: "Mate latte in a ceramic cup on soft fabric.",
+    title: "Slow morning ritual",
+    description: "A warm mate latte to begin the day calm, centred and ready.",
+    image: momentLatte,
+    alt: "Woman in soft green activewear stirring a warm mate latte beside a Mateada pouch.",
   },
   {
-    title: "Iced mate",
-    description: "Bright, chilled, and refreshing.",
-    image: ritualIced,
-    alt: "Iced green yerba mate in a clear glass.",
-  },
-  {
-    title: "Hot and simple",
-    description: "Warm water, clean focus, no extras.",
-    image: ritualHot,
-    alt: "Steaming cup of hot yerba mate beside an open book.",
-  },
-  {
-    title: "Just with water",
-    description: "Your on-the-go daily ritual.",
-    image: ritualGym,
-    alt: "Mate sachet and water bottle on a gym bench.",
+    title: "Mateada at the gym",
+    description: "Cold-shaken mate in your bottle for clean, lasting energy through every session.",
+    image: momentGym,
+    alt: "Athlete drinking iced Mateada from a glass bottle after a workout.",
   },
 ] as const;
 
