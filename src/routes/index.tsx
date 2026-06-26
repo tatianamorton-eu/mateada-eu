@@ -189,7 +189,7 @@ function Index() {
       </section>
 
 
-      <section id="shop" className="bg-primary px-5 py-18 text-primary-foreground sm:px-8 sm:py-24 lg:px-12">
+      <section id="shop" className="bg-primary px-4 py-14 text-primary-foreground sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-[1500px]">
           <div className="flex flex-col gap-4 border-b border-primary-foreground/20 pb-10 md:flex-row md:items-end md:justify-between">
             <div>
