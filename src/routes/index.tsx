@@ -398,7 +398,7 @@ function ProductCard({
         <p className="max-w-xl text-sm text-primary-foreground/80 sm:text-base">{description}</p>
 
         {subscribable && subscribePrice ? (
-          <div className="mt-6 grid grid-cols-2 gap-2" role="tablist" aria-label="Purchase option">
+          <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2" role="tablist" aria-label="Purchase option">
             <button
               type="button"
               role="tab"
