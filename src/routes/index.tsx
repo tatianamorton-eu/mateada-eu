@@ -11,7 +11,7 @@ import yerbaFreshAsset from "../assets/yerba-fresh.png.asset.json";
 const yerbaFresh = yerbaFreshAsset.url;
 import sachetSingleAsset from "../assets/sachet-single.png.asset.json";
 import yerbaBagAsset from "../assets/yerba-bag.png.asset.json";
-import boxHeroAsset from "../assets/mateada-box.asset.json";
+import boxHeroAsset from "../assets/mateada-box-v2.png.asset.json";
 const sachetSingle = sachetSingleAsset.url;
 const yerbaBag = yerbaBagAsset.url;
 const boxHero = boxHeroAsset.url;
