@@ -11,7 +11,7 @@ import yerbaFreshAsset from "../assets/yerba-fresh.png.asset.json";
 const yerbaFresh = yerbaFreshAsset.url;
 import sachetSingleAsset from "../assets/sachet-single.png.asset.json";
 import yerbaBagAsset from "../assets/yerba-bag.png.asset.json";
-import boxHeroAsset from "../assets/mateada-box.asset.json";
+import boxHeroAsset from "../assets/mateada-box-v2.png.asset.json";
 const sachetSingle = sachetSingleAsset.url;
 const yerbaBag = yerbaBagAsset.url;
 const boxHero = boxHeroAsset.url;
@@ -340,61 +340,6 @@ function Index() {
         </div>
       </section>
 
-      <section id="mateada" className="bg-background px-5 py-18 sm:px-8 sm:py-24 lg:px-12">
-        <div className="mx-auto grid max-w-[1500px] gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Mateada</p>
-            <h2 className="mt-3 font-display text-[clamp(2.2rem,5vw,4rem)] uppercase tracking-[0.14em] text-foreground">
-              Nature-led energy for a slower life.
-            </h2>
-            <p className="mt-6 text-lg text-muted-foreground">
-              Mateada is built around purity, simplicity, and the feeling of being close to nature.
-              We take the depth of yerba mate and make it easier to live with every day.
-            </p>
-            <p className="mt-5 text-lg text-muted-foreground">
-              As the first pure soluble yerba mate, it keeps the ritual clean: fine-ground leaves,
-              careful sourcing from Misiones, and a fresh modern format designed for focus, wellness,
-              and clarity.
-            </p>
-            <div className="mt-10 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:gap-10">
-              <div>
-                <p className="font-display text-4xl uppercase tracking-[0.12em] text-foreground">01</p>
-                <p className="mt-2 text-sm uppercase tracking-[0.16em] text-muted-foreground">
-                  Pure soluble innovation
-                </p>
-              </div>
-              <div>
-                <p className="font-display text-4xl uppercase tracking-[0.12em] text-foreground">02</p>
-                <p className="mt-2 text-sm uppercase tracking-[0.16em] text-muted-foreground">
-                  Sourced with care in Argentina
-                </p>
-              </div>
-              <div>
-                <p className="font-display text-4xl uppercase tracking-[0.12em] text-foreground">03</p>
-                <p className="mt-2 text-sm uppercase tracking-[0.16em] text-muted-foreground">
-                  Designed for modern rituals
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="overflow-hidden border border-border bg-card">
-            <img
-              src={heroPlantation}
-              alt="Sunlit yerba mate plantation hills in Misiones, Argentina."
-              className="aspect-[4/5] w-full object-cover"
-              loading="lazy"
-              width={1536}
-              height={1024}
-            />
-            <div className="border-t border-border px-6 py-6">
-              <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">
-                Yerba mate, made simple.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
