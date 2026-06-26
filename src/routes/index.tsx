@@ -15,10 +15,10 @@ import boxHeroAsset from "../assets/mateada-box-v2.png.asset.json";
 const sachetSingle = sachetSingleAsset.url;
 const yerbaBag = yerbaBagAsset.url;
 const boxHero = boxHeroAsset.url;
-import ritualLatte from "../assets/ritual-latte.jpg";
-import ritualIced from "../assets/ritual-iced.jpg";
-import ritualGym from "../assets/ritual-gym.jpg";
-import ritualHot from "../assets/ritual-hot.jpg";
+import momentLatteAsset from "../assets/moment-latte.png.asset.json";
+import momentGymAsset from "../assets/moment-gym.png.asset.json";
+const momentLatte = momentLatteAsset.url;
+const momentGym = momentGymAsset.url;
 import mateadaLogo from "../assets/mateada-logo.png.asset.json";
 
 const SITE_URL = "https://id-preview--2cf516a2-25e9-4ed8-86a2-71ef3a13b65d.lovable.app";
