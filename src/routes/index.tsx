@@ -404,27 +404,24 @@ function ProductCard({
   subtitle,
   description,
   price,
-  images,
+  subscribePrice,
+  image,
   altPrefix,
   highlight = false,
+  subscribable = false,
 }: {
   badge: string;
   title: string;
   subtitle: string;
   description: string;
   price: string;
-  images: string[];
+  subscribePrice?: string;
+  image: string;
   altPrefix: string;
   highlight?: boolean;
+  subscribable?: boolean;
 }) {
-  const [frameIndex, setFrameIndex] = useState(0);
-
-  const handleMove = (event: MouseEvent<HTMLDivElement>) => {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const ratio = (event.clientX - bounds.left) / bounds.width;
-    const nextIndex = Math.max(0, Math.min(images.length - 1, Math.floor(ratio * images.length)));
-    setFrameIndex(nextIndex);
-  };
+  const [mode, setMode] = useState<"once" | "subscribe">("once");
 
   return (
     <article
@@ -443,32 +440,17 @@ function ProductCard({
           >
             {badge}
           </span>
-          <div className="flex gap-2" aria-hidden="true">
-            {images.map((_, index) => (
-              <span
-                key={index}
-                className={cn(
-                  "h-1.5 w-8 rounded-full transition-colors",
-                  frameIndex === index ? "bg-primary-foreground" : "bg-primary-foreground/25",
-                )}
-              />
-            ))}
-          </div>
         </div>
 
         <p className="mt-8 text-sm uppercase tracking-[0.18em] text-primary-foreground/70">{subtitle}</p>
-        <h3 className="mt-3 max-w-sm font-display text-[clamp(2.4rem,4vw,4.2rem)] uppercase leading-[0.95] tracking-[0.1em] text-primary-foreground">
+        <h3 className="mt-3 max-w-sm font-display text-[clamp(2rem,3vw,3rem)] uppercase leading-[0.95] tracking-[0.1em] text-primary-foreground">
           {title}
         </h3>
 
-        <div
-          className="mt-8 overflow-hidden border border-primary-foreground/16 bg-background/4"
-          onMouseMove={handleMove}
-          onMouseLeave={() => setFrameIndex(0)}
-        >
+        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-background/4">
           <img
-            src={images[frameIndex]}
-            alt={`${altPrefix} view ${frameIndex + 1}`}
+            src={image}
+            alt={altPrefix}
             className="aspect-[4/5] w-full object-cover"
             loading="lazy"
             width={1024}
@@ -479,19 +461,56 @@ function ProductCard({
 
       <div className="mt-8 border-t border-primary-foreground/16 pt-6">
         <p className="max-w-xl text-sm text-primary-foreground/80 sm:text-base">{description}</p>
-        <div className="mt-7 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <a
-            href="#top"
-            className="inline-flex w-fit items-center justify-center border border-primary-foreground/30 px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-80"
+
+        {subscribable && subscribePrice ? (
+          <div className="mt-6 grid grid-cols-2 gap-2" role="tablist" aria-label="Purchase option">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === "once"}
+              onClick={() => setMode("once")}
+              className={cn(
+                "border px-3 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors",
+                mode === "once"
+                  ? "border-primary-foreground bg-primary-foreground text-primary"
+                  : "border-primary-foreground/30 text-primary-foreground/80 hover:border-primary-foreground/60",
+              )}
+            >
+              One-time · {price}
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === "subscribe"}
+              onClick={() => setMode("subscribe")}
+              className={cn(
+                "border px-3 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors",
+                mode === "subscribe"
+                  ? "border-primary-foreground bg-primary-foreground text-primary"
+                  : "border-primary-foreground/30 text-primary-foreground/80 hover:border-primary-foreground/60",
+              )}
+            >
+              Subscribe · {subscribePrice}
+            </button>
+          </div>
+        ) : null}
+
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <button
+            type="button"
+            className="inline-flex w-fit items-center justify-center border border-primary-foreground bg-primary-foreground px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-primary transition-opacity hover:opacity-90"
           >
-            Explore product
-          </a>
-          <p className="text-sm uppercase tracking-[0.18em] text-primary-foreground/80">{price}</p>
+            {subscribable && mode === "subscribe" ? "Subscribe" : "Buy now"}
+          </button>
+          <p className="text-sm uppercase tracking-[0.18em] text-primary-foreground/80">
+            {subscribable && mode === "subscribe" && subscribePrice ? subscribePrice : price}
+          </p>
         </div>
       </div>
     </article>
   );
 }
+
 
 function BrandMark({ className }: { className?: string }) {
   return (
