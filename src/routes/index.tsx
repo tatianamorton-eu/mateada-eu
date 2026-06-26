@@ -105,10 +105,10 @@ function Index() {
   return (
     <main className="bg-background text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:px-12">
-          <a href="#top" className="flex items-center gap-3" aria-label="Mateada home">
-            <BrandMark className="h-24 w-24 sm:h-28 sm:w-28" />
-            <span className="font-display text-2xl uppercase tracking-[0.24em] text-foreground sm:text-3xl">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-3 sm:gap-6 sm:px-8 sm:py-4 lg:px-12">
+          <a href="#top" className="flex min-w-0 items-center gap-2 sm:gap-3" aria-label="Mateada home">
+            <BrandMark className="h-12 w-12 shrink-0 sm:h-20 sm:w-20 lg:h-28 lg:w-28" />
+            <span className="truncate font-display text-lg uppercase tracking-[0.18em] text-foreground sm:text-2xl sm:tracking-[0.24em] lg:text-3xl">
               Mateada
             </span>
           </a>
