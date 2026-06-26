@@ -253,7 +253,7 @@ function Index() {
         />
       </section>
 
-      <section id="benefits" className="border-b border-border bg-background px-5 py-18 sm:px-8 sm:py-24 lg:px-12">
+      <section id="benefits" className="border-b border-border bg-background px-4 py-14 sm:px-8 sm:py-24 lg:px-12">
         <div className="mx-auto max-w-[1400px]">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.18em] text-muted-foreground">Pure yerba mate.</p>
