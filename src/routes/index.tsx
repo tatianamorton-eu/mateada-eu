@@ -393,7 +393,7 @@ function ProductCard({
   return (
     <article
       className={cn(
-        "flex h-full flex-col border border-primary-foreground/16 bg-primary/70 p-5 sm:p-7",
+        "flex flex-col justify-between border border-primary-foreground/16 bg-primary/70 p-5 sm:p-7",
         highlight && "bg-primary/55",
       )}
     >
@@ -414,11 +414,11 @@ function ProductCard({
           {title}
         </h3>
 
-        <div className="-mx-5 mt-6 overflow-hidden sm:-mx-7 sm:mt-8">
+        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-gradient-to-b from-background to-background/90 p-6 sm:p-10">
           <img
             src={image}
             alt={altPrefix}
-            className="w-full aspect-[4/5] object-cover"
+            className="mx-auto aspect-[4/5] w-full object-contain mix-blend-multiply"
             loading="lazy"
             width={1024}
             height={1280}
