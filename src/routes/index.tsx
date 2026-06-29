@@ -346,6 +346,7 @@ function ProductCard({
   altPrefix,
   highlight = false,
   subscribable = false,
+  imageAspect = "aspect-[4/5]",
 }: {
   badge: string;
   title: string;
@@ -357,6 +358,7 @@ function ProductCard({
   altPrefix: string;
   highlight?: boolean;
   subscribable?: boolean;
+  imageAspect?: string;
 }) {
   const [mode, setMode] = useState<"once" | "subscribe">("once");
   const [open, setOpen] = useState(false);
@@ -415,11 +417,14 @@ function ProductCard({
           {title}
         </h3>
 
-        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-gradient-to-b from-background to-background/90 p-6 sm:p-10">
+        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-gradient-to-b from-background to-background/90 p-4 sm:p-8">
           <img
             src={image}
             alt={altPrefix}
-            className="mx-auto aspect-[4/5] w-full object-contain mix-blend-multiply"
+            className={cn(
+              "mx-auto w-full object-contain drop-shadow-2xl transition-transform duration-500 hover:scale-[1.03]",
+              imageAspect,
+            )}
             loading="lazy"
             width={1024}
             height={1280}
