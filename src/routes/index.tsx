@@ -393,7 +393,7 @@ function ProductCard({
   return (
     <article
       className={cn(
-        "flex flex-col border border-primary-foreground/16 bg-primary/70 p-5 sm:p-7",
+        "flex h-full flex-col border border-primary-foreground/16 bg-primary/70 p-5 sm:p-7",
         highlight && "bg-primary/55",
       )}
     >
