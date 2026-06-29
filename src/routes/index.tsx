@@ -230,7 +230,7 @@ function Index() {
             <ProductCard
               badge="Loose powder"
               title="Yerba Mate Bag"
-              subtitle="20 servings, refill format"
+              subtitle="500 grams, refill format"
               description="Fine-ground pure yerba mate in a resealable pouch — flexible scoops, less packaging."
               price="€15.99"
               subscribePrice="€14.39 / month"
