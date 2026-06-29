@@ -1,7 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useState } from "react";
-import { recordBuyNow } from "@/lib/buy-now.functions";
 
 import { cn } from "../lib/utils";
 import heroPowderAsset from "../assets/hero-powder.png.asset.json";
