@@ -59,7 +59,6 @@ export const Route = createFileRoute("/")({
 const navItems = [
   { label: "SHOP", href: "#shop" },
   { label: "BENEFITS", href: "#benefits" },
-  { label: "MATEADA", href: "#mateada" },
   { label: "MATE GUIDE", href: "#mate-guide" },
 ];
 
