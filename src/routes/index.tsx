@@ -359,6 +359,37 @@ function ProductCard({
   subscribable?: boolean;
 }) {
   const [mode, setMode] = useState<"once" | "subscribe">("once");
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "done" | "error">("idle");
+  const record = useServerFn(recordBuyNow);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  const openDialog = () => {
+    setStatus("idle");
+    setEmail("");
+    setOpen(true);
+    // Fire-and-forget: log the click even if they never enter an email
+    record({ data: { product: title } }).catch(() => {});
+  };
+
+  const submitEmail = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setStatus("submitting");
+    try {
+      await record({ data: { product: title, email: email.trim() } });
+      setStatus("done");
+    } catch {
+      setStatus("error");
+    }
+  };
 
   return (
     <article
@@ -435,6 +466,7 @@ function ProductCard({
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <button
             type="button"
+            onClick={openDialog}
             className="inline-flex w-fit items-center justify-center border border-primary-foreground bg-primary-foreground px-6 py-3 text-sm font-medium uppercase tracking-[0.18em] text-primary transition-opacity hover:opacity-90"
           >
             {subscribable && mode === "subscribe" ? "Subscribe" : "Buy now"}
@@ -444,9 +476,81 @@ function ProductCard({
           </p>
         </div>
       </div>
+
+      {open ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/60 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Join the waitlist for ${title}`}
+          onClick={() => setOpen(false)}
+        >
+          <div
+            className="w-full max-w-md border border-border bg-background p-6 text-foreground sm:p-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {status === "done" ? (
+              <>
+                <h4 className="font-display text-2xl uppercase tracking-[0.12em]">You're on the list</h4>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  We'll email you the moment {title} is back in stock.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="mt-6 inline-flex items-center justify-center border border-primary bg-primary px-5 py-2.5 text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground"
+                >
+                  Close
+                </button>
+              </>
+            ) : (
+              <>
+                <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{title}</p>
+                <h4 className="mt-2 font-display text-2xl uppercase tracking-[0.12em]">
+                  Currently out of stock
+                </h4>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Leave your email and we'll notify you the moment it's back.
+                </p>
+                <form onSubmit={submitEmail} className="mt-5 flex flex-col gap-3">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    maxLength={254}
+                    className="border border-border bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <button
+                      type="button"
+                      onClick={() => setOpen(false)}
+                      className="text-xs uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground"
+                    >
+                      No thanks
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={status === "submitting"}
+                      className="inline-flex items-center justify-center border border-primary bg-primary px-5 py-2.5 text-xs font-medium uppercase tracking-[0.18em] text-primary-foreground disabled:opacity-60"
+                    >
+                      {status === "submitting" ? "Adding…" : "Notify me"}
+                    </button>
+                  </div>
+                  {status === "error" ? (
+                    <p className="text-xs text-destructive">Something went wrong. Please try again.</p>
+                  ) : null}
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      ) : null}
     </article>
   );
 }
+
 
 
 function BrandMark({ className }: { className?: string }) {
