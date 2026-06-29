@@ -11,8 +11,8 @@ const heroPlantation = heroPlantationAsset.url;
 import powderBand from "../assets/mate-powder-band.png";
 import yerbaFreshAsset from "../assets/yerba-fresh.png.asset.json";
 const yerbaFresh = yerbaFreshAsset.url;
-import sachetSingleAsset from "../assets/sachet-single.png.asset.json";
-import yerbaBagAsset from "../assets/yerba-bag-v3.png.asset.json";
+import sachetSingleAsset from "../assets/sachet-single-v2.png.asset.json";
+import yerbaBagAsset from "../assets/yerba-bag-v4.png.asset.json";
 import boxHeroAsset from "../assets/mateada-box-v3.png.asset.json";
 const sachetSingle = sachetSingleAsset.url;
 const yerbaBag = yerbaBagAsset.url;
@@ -419,7 +419,7 @@ function ProductCard({
           {title}
         </h3>
 
-        <div className="mt-8 overflow-hidden border border-primary-foreground/16 bg-gradient-to-b from-background to-background/90 p-4 sm:p-8">
+        <div className="mt-8 overflow-hidden p-4 sm:p-8">
           <img
             src={image}
             alt={altPrefix}
