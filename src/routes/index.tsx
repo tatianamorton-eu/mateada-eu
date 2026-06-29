@@ -414,11 +414,11 @@ function ProductCard({
           {title}
         </h3>
 
-        <div className="-mx-5 mt-6 overflow-hidden bg-background sm:-mx-7 sm:mt-8">
+        <div className="-mx-5 mt-6 overflow-hidden sm:-mx-7 sm:mt-8">
           <img
             src={image}
             alt={altPrefix}
-            className="mx-auto w-full max-h-[300px] object-contain sm:max-h-[360px]"
+            className="w-full aspect-[4/5] object-cover"
             loading="lazy"
             width={1024}
             height={1280}
