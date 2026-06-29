@@ -12,7 +12,7 @@ import powderBand from "../assets/mate-powder-band.png";
 import yerbaFreshAsset from "../assets/yerba-fresh.png.asset.json";
 const yerbaFresh = yerbaFreshAsset.url;
 import sachetSingleAsset from "../assets/sachet-single.png.asset.json";
-import yerbaBagAsset from "../assets/yerba-bag-v2.png.asset.json";
+import yerbaBagAsset from "../assets/yerba-bag-v3.png.asset.json";
 import boxHeroAsset from "../assets/mateada-box-v2.png.asset.json";
 const sachetSingle = sachetSingleAsset.url;
 const yerbaBag = yerbaBagAsset.url;
@@ -236,6 +236,7 @@ function Index() {
               subscribePrice="€14.39 / month"
               image={yerbaBag}
               altPrefix="Mateada yerba mate pouch"
+              imageAspect="aspect-[2/3]"
               subscribable
             />
 
