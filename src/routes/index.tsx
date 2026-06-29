@@ -236,6 +236,7 @@ function Index() {
               subscribePrice="€14.39 / month"
               image={yerbaBag}
               altPrefix="Mateada yerba mate pouch"
+              imageAspect="aspect-[2/3]"
               subscribable
             />
 
