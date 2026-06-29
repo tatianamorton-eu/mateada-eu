@@ -213,6 +213,7 @@ function Index() {
               price="€1"
               image={sachetSingle}
               altPrefix="Mateada single sachet"
+              imageAspect="aspect-[3/5]"
             />
             <ProductCard
               badge="Best value"
