@@ -12,7 +12,7 @@ import powderBand from "../assets/mate-powder-band.png";
 import yerbaFreshAsset from "../assets/yerba-fresh.png.asset.json";
 const yerbaFresh = yerbaFreshAsset.url;
 import sachetSingleAsset from "../assets/sachet-single-v2.png.asset.json";
-import yerbaBagAsset from "../assets/yerba-bag-v4.png.asset.json";
+import yerbaBagAsset from "../assets/yerba-bag-v5.png.asset.json";
 import boxHeroAsset from "../assets/mateada-box-v3.png.asset.json";
 const sachetSingle = sachetSingleAsset.url;
 const yerbaBag = yerbaBagAsset.url;
@@ -231,7 +231,7 @@ function Index() {
             <ProductCard
               badge="Loose powder"
               title="Yerba Mate Bag"
-              subtitle="500 grams, refill format"
+              subtitle="100 grams, refill format"
               description="Fine-ground pure yerba mate in a resealable pouch — flexible scoops, less packaging."
               price="€15.99"
               subscribePrice="€14.39 / month"
