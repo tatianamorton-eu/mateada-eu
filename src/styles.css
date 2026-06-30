@@ -1,6 +1,5 @@
 @import "tailwindcss" source(none);
 @source "../src";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -29,34 +28,41 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-highlight: var(--highlight);
+  --color-sage: var(--sage);
+  --color-sage-foreground: var(--sage-foreground);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
 }
 
 :root {
-  --radius: 0.5rem;
+  /* Hue ~121 below is sampled from the real Mateada packaging (box, sachet,
+     pouch photography) — a warmer, more olive green than a generic forest
+     green, kept consistent across every token in this palette. */
+  --radius: 0.125rem;
   --font-body: "Manrope", sans-serif;
   --font-display: "Cormorant Garamond", serif;
   --background: oklch(0.975 0.015 95.7);
-  --foreground: oklch(0.353 0.053 138.4);
+  --foreground: oklch(0.32 0.058 121);
   --card: oklch(0.986 0.01 96.4);
-  --card-foreground: oklch(0.353 0.053 138.4);
+  --card-foreground: oklch(0.32 0.058 121);
   --popover: oklch(0.986 0.01 96.4);
-  --popover-foreground: oklch(0.353 0.053 138.4);
-  --primary: oklch(0.298 0.057 138.2);
+  --popover-foreground: oklch(0.32 0.058 121);
+  --primary: oklch(0.335 0.06 121);
   --primary-foreground: oklch(0.972 0.014 96.8);
   --secondary: oklch(0.931 0.02 97.9);
-  --secondary-foreground: oklch(0.353 0.053 138.4);
+  --secondary-foreground: oklch(0.32 0.058 121);
   --muted: oklch(0.953 0.013 96.9);
-  --muted-foreground: oklch(0.516 0.036 137.1);
+  --muted-foreground: oklch(0.5 0.04 119);
   --accent: oklch(0.899 0.028 111.8);
-  --accent-foreground: oklch(0.301 0.05 138.2);
+  --accent-foreground: oklch(0.32 0.058 121);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0.01 96.4);
   --border: oklch(0.874 0.016 95.1);
   --input: oklch(0.874 0.016 95.1);
-  --ring: oklch(0.535 0.073 139.5);
-  --highlight: oklch(0.837 0.123 124.2);
+  --ring: oklch(0.535 0.073 121);
+  --highlight: oklch(0.837 0.1 120);
+  --sage: oklch(0.74 0.035 117);
+  --sage-foreground: oklch(0.32 0.058 121);
 }
 
 .dark {
@@ -87,10 +93,6 @@
     border-color: var(--color-border);
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -115,5 +117,38 @@
 
   ::selection {
     background: color-mix(in oklab, var(--primary) 20%, transparent);
+  }
+}
+
+/* Lenis drives scrolling once mounted; native smooth-scroll is intentionally
+   left off above so the two never fight over the same scroll. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  html {
+    scroll-behavior: auto !important;
   }
 }

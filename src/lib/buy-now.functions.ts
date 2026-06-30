@@ -9,7 +9,9 @@ function isValidEmail(value: string) {
 
 export const recordBuyNow = createServerFn({ method: "POST" })
   .inputValidator((input: { product: string; email?: string }) => {
-    const product = String(input?.product ?? "").slice(0, 120).trim();
+    const product = String(input?.product ?? "")
+      .slice(0, 120)
+      .trim();
     if (!product) throw new Error("Missing product");
     let email: string | undefined;
     if (input?.email) {
