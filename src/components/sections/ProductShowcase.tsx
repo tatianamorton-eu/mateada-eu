@@ -1,70 +1,110 @@
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { Heading } from "@/components/ui/Heading";
-import { ProductCard } from "@/components/product/ProductCard";
-import productStick from "@/assets/brand/product-stick.webp";
-import productBox from "@/assets/brand/product-box.webp";
+import * as React from "react";
+import { ProductVisual } from "@/components/product/ProductVisual";
+import { WaitlistDialog } from "@/components/product/WaitlistDialog";
+import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
+import productCaja from "@/assets/brand/product-caja.webp";
 import productBag from "@/assets/brand/product-bag.webp";
+
+const products = [
+  {
+    title: "Box of 20 Sachets",
+    description: "Fine-ground yerba mate — ready to dissolve, no prep needed.",
+    price: "€17.99",
+    subscribePrice: "€16.19 / month",
+    src: productCaja,
+    imageHeight: "max-h-[340px] sm:max-h-[390px]",
+  },
+  {
+    title: "Yerba Mate Bag",
+    description: "100g in a resealable pouch. Flexible scoops, less packaging.",
+    price: "€15.99",
+    subscribePrice: "€14.39 / month",
+    src: productBag,
+    imageHeight: "max-h-[390px] sm:max-h-[440px]",
+  },
+] as const;
 
 export function ProductShowcase() {
   return (
     <section
       id="shop"
-      className="bg-primary px-4 py-14 text-primary-foreground sm:px-8 sm:py-24 lg:px-12"
+      className="bg-primary px-4 py-6 text-primary-foreground sm:px-8 sm:py-8 lg:px-12"
     >
-      <div className="mx-auto max-w-[1500px]">
-        <div className="flex flex-col gap-4 border-b border-primary-foreground/20 pb-10 md:flex-row md:items-end md:justify-between">
-          <div>
-            <Eyebrow className="text-primary-foreground/70">Shop</Eyebrow>
-            <Heading as="h2" size="lg" className="mt-3 max-w-4xl text-primary-foreground">
-              Three simple ways to drink Mateada.
-            </Heading>
-          </div>
-          <p className="max-w-xl text-sm uppercase tracking-[0.16em] text-primary-foreground/75">
-            Buy once or subscribe and save on every refill.
-          </p>
+      <div className="mx-auto max-w-[1300px]">
+        {/* Heading */}
+        <div className="mb-6 text-center sm:mb-8">
+          <h2 className="font-display text-[clamp(2rem,4.5vw,3.5rem)] uppercase leading-[0.98] tracking-[0.06em] text-primary-foreground">
+            The Mateada collection.
+          </h2>
         </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-3">
-          <ProductCard
-            badge="Single serve"
-            title="Single Sachet"
-            subtitle="Fine-ground yerba mate"
-            description="One pure stick to try the ritual — perfect for water, latte, iced, or hot."
-            price="€1"
-            image={productStick}
-            imageWidth={700}
-            imageHeight={1052}
-            altPrefix="Mateada single sachet, fine-ground yerba mate"
-          />
-          <ProductCard
-            badge="Best value"
-            title="Box of 20 Sachets"
-            subtitle="Your home ritual"
-            description="A full box for slower mornings and steady focus — buy once or subscribe and save 10%."
-            price="€17.99"
-            subscribePrice="€16.19 / month"
-            image={productBox}
-            imageWidth={1000}
-            imageHeight={1089}
-            altPrefix="Mateada box of 20 sachets"
-            highlight
-            subscribable
-          />
-          <ProductCard
-            badge="Loose powder"
-            title="Yerba Mate Bag"
-            subtitle="100 grams, refill format"
-            description="Fine-ground pure yerba mate in a resealable pouch — flexible scoops, less packaging."
-            price="€15.99"
-            subscribePrice="€14.39 / month"
-            image={productBag}
-            imageWidth={760}
-            imageHeight={1140}
-            altPrefix="Mateada 100 gram yerba mate pouch"
-            subscribable
-          />
+        {/* Grid — 1 col mobile, 2 col sm+ */}
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          {products.map((product) => (
+            <CollectionCard key={product.title} product={product} />
+          ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function CollectionCard({ product }: { product: (typeof products)[number] }) {
+  const [mode, setMode] = React.useState<"once" | "subscribe">("once");
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <article className="flex flex-col overflow-hidden rounded-2xl bg-sage text-center">
+      {/* Product name — above image */}
+      <div className="px-6 pb-1 pt-5 sm:px-8 sm:pt-6">
+        <h3 className="font-display text-[clamp(1.55rem,2.3vw,2rem)] font-semibold uppercase leading-tight tracking-[0.07em] text-foreground">
+          {product.title}
+        </h3>
+      </div>
+
+      {/* Product image */}
+      <div className="flex flex-1 items-end justify-center px-4 pb-2 sm:px-6">
+        <ProductVisual src={product.src} alt={product.title} imageHeight={product.imageHeight} />
+      </div>
+
+      {/* Bottom info */}
+      <div className="border-t border-foreground/15 px-6 pb-5 pt-4 sm:px-8 sm:pb-6 sm:pt-5">
+        <p className="mb-4 text-sm leading-relaxed text-foreground sm:text-[0.9rem]">
+          {product.description}
+        </p>
+
+        {/* CTA — full width */}
+        <Button
+          variant="solid"
+          magnetic={false}
+          onClick={() => setOpen(true)}
+          className="w-full py-3.5 text-sm tracking-[0.2em] sm:py-4"
+        >
+          {mode === "subscribe" ? "Subscribe" : "Buy now"}
+        </Button>
+
+        {/* Price + subscribe toggle */}
+        <div className="mt-4">
+          <p className="font-display text-2xl font-semibold text-foreground sm:text-3xl">
+            {mode === "subscribe" ? product.subscribePrice.split(" ")[0] : product.price}
+          </p>
+          <button
+            type="button"
+            onClick={() => setMode(mode === "once" ? "subscribe" : "once")}
+            className={cn(
+              "mt-1 text-xs uppercase tracking-[0.15em] transition-opacity",
+              mode === "subscribe"
+                ? "text-foreground/80 hover:text-foreground"
+                : "text-foreground/70 hover:text-foreground",
+            )}
+          >
+            {mode === "subscribe" ? "← one-time" : `Subscribe · ${product.subscribePrice}`}
+          </button>
+        </div>
+      </div>
+
+      <WaitlistDialog open={open} onOpenChange={setOpen} productTitle={product.title} />
+    </article>
   );
 }

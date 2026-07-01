@@ -134,7 +134,7 @@ await webp(logoTransparent, out("logo.webp"), { width: 620, quality: 95 });
 const stickFixed = await isolateForeground(src("stick.png"), { mode: "white" });
 await webp(stickFixed, out("product-stick.webp"), { width: 700, quality: 92 });
 await webp(sharp(src("box.png")), out("product-box.webp"), { width: 1000, quality: 90 });
-await webp(sharp(src("100g_bag.png")), out("product-bag.webp"), { width: 760, quality: 90 });
+// product-bag.webp is now processed with transparency below (CAJA section).
 
 // Heritage / lifestyle photography — desktop + mobile widths.
 const responsive = [
@@ -153,6 +153,74 @@ await webp(sharp(src("inspo_path_0.png")), out("texture-powder.webp"), {
   width: 1400,
   quality: 68,
 });
+
+// CAJA.png — Box of 20 Sachets, white bg removed so product floats on any surface.
+const cajaTransparent = await isolateForeground(src("CAJA.png"), {
+  mode: "transparent",
+  maxLightness: 240,
+  maxChroma: 10,
+  growPasses: 1,
+});
+await webp(cajaTransparent, out("product-caja.webp"), { width: 1200, quality: 92 });
+
+// 100g_bag.png — crop the bottom 8 % first (it's the surface cast-shadow / reflection
+// from the photography, not part of the product) then remove the white background.
+const bagMeta = await sharp(src("100g_bag.png")).metadata();
+// Crop bottom 18 % (removes the cast-shadow area below the bag base).
+const bagCropBuffer = await sharp(src("100g_bag.png"))
+  .extract({
+    left: 0,
+    top: 0,
+    width: bagMeta.width,
+    height: Math.floor(bagMeta.height * 0.78),
+  })
+  .toBuffer();
+
+// ERASE FIRST, ISOLATE SECOND — this is the only reliable order.
+// The bag's specular highlight is enclosed by dark packaging pixels so border-
+// flood-fill can never reach it, but pre-erasing the right-half bottom zone
+// before isolation cleanly removes it. "100g" label is centre-aligned (~x 50 %)
+// so erasing x ≥ 52 % is safe; the shine sits at x ≥ 52 %, y ≥ 75 %.
+const { data: bagRaw, info: bagRawInfo } = await sharp(bagCropBuffer)
+  .ensureAlpha()
+  .raw()
+  .toBuffer({ resolveWithObject: true });
+const { width: brw, height: brh, channels: brc } = bagRawInfo;
+// Right-half specular (x≥52%, y≥75%): light pixels enclosed by dark packaging.
+const szX = Math.floor(brw * 0.52);
+const szY = Math.floor(brh * 0.75);
+for (let y = szY; y < brh; y++) {
+  for (let x = szX; x < brw; x++) {
+    const base = (y * brw + x) * brc;
+    if (Math.min(bagRaw[base], bagRaw[base + 1], bagRaw[base + 2]) > 155) {
+      bagRaw[base + 3] = 0;
+    }
+  }
+}
+// Bottom-strip surface reflection (full width, bottom 12%): photography cast light.
+// Dark bag body min-RGB ≈ 30–70, so threshold 140 is safe.
+const stripY = Math.floor(brh * 0.88);
+for (let y = stripY; y < brh; y++) {
+  for (let x = 0; x < brw; x++) {
+    const base = (y * brw + x) * brc;
+    if (Math.min(bagRaw[base], bagRaw[base + 1], bagRaw[base + 2]) > 140) {
+      bagRaw[base + 3] = 0;
+    }
+  }
+}
+// Encode as PNG so isolateForeground's sharp(buffer) can detect the format.
+const bagPreErased = await sharp(bagRaw, {
+  raw: { width: brw, height: brh, channels: brc },
+}).png().toBuffer();
+
+// Now isolate: flood-fill removes the main white background.
+const bagTransparent = await isolateForeground(bagPreErased, {
+  mode: "transparent",
+  maxLightness: 248,
+  maxChroma: 15,
+  growPasses: 2,
+});
+await webp(bagTransparent, out("product-bag.webp"), { width: 760, quality: 92 });
 
 // New hero assets (July 2026 redesign).
 // LOGO.png is already fully transparent — just compress/resize for header.
