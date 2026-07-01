@@ -1,5 +1,5 @@
 import * as React from "react";
-import { recordBuyNow } from "@/lib/buy-now.functions";
+import { recordSubscriberEmail } from "@/lib/buy-now.functions";
 import { Heading } from "@/components/ui/Heading";
 import { Button } from "@/components/ui/Button";
 
@@ -12,7 +12,7 @@ export function NewsletterCta() {
     if (!email.trim()) return;
     setStatus("submitting");
     try {
-      await recordBuyNow({ data: { product: "Newsletter", email: email.trim() } });
+      await recordSubscriberEmail(email.trim());
       setStatus("done");
     } catch {
       setStatus("error");

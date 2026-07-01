@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import { Drawer } from "vaul";
 import { gsap } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
-import { recordBuyNow } from "@/lib/buy-now.functions";
+import { recordBuyerEmail, recordSubscriberEmail } from "@/lib/buy-now.functions";
 import { useIsTouchDevice } from "@/hooks/use-is-touch-device";
 import { Button } from "@/components/ui/Button";
 import { CloseIcon } from "@/components/ui/icons";
@@ -15,7 +15,7 @@ type WaitlistDialogProps = {
   mode?: "buy" | "subscribe";
 };
 
-function useWaitlistForm(productTitle: string, open: boolean) {
+function useWaitlistForm(productTitle: string, open: boolean, mode: "buy" | "subscribe") {
   const [email, setEmail] = React.useState("");
   const [status, setStatus] = React.useState<"idle" | "submitting" | "done" | "error">("idle");
 
@@ -23,7 +23,6 @@ function useWaitlistForm(productTitle: string, open: boolean) {
     if (!open) return;
     setStatus("idle");
     setEmail("");
-    recordBuyNow({ data: { product: productTitle } }).catch(() => {});
   }, [open, productTitle]);
 
   const submit = async (event: React.FormEvent) => {
@@ -31,7 +30,11 @@ function useWaitlistForm(productTitle: string, open: boolean) {
     if (!email.trim()) return;
     setStatus("submitting");
     try {
-      await recordBuyNow({ data: { product: productTitle, email: email.trim() } });
+      if (mode === "buy") {
+        await recordBuyerEmail(email.trim());
+      } else {
+        await recordSubscriberEmail(email.trim());
+      }
       setStatus("done");
     } catch {
       setStatus("error");
@@ -123,7 +126,7 @@ function WaitlistForm({
 
 export function WaitlistDialog({ open, onOpenChange, productTitle, mode = "buy" }: WaitlistDialogProps) {
   const isTouch = useIsTouchDevice();
-  const { email, setEmail, status, submit } = useWaitlistForm(productTitle, open);
+  const { email, setEmail, status, submit } = useWaitlistForm(productTitle, open, mode);
   const close = () => onOpenChange(false);
 
   if (isTouch) {

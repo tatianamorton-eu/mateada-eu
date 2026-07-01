@@ -8,6 +8,48 @@ export type Database = {
   };
   public: {
     Tables: {
+      buyers_emails: {
+        Row: {
+          id: string;
+          email: string;
+          source: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          email: string;
+          source: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          email?: string;
+          source?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      subscribers_emails: {
+        Row: {
+          id: string;
+          email: string;
+          source: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          email: string;
+          source: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          email?: string;
+          source?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       buy_now_events: {
         Row: {
           created_at: string;
