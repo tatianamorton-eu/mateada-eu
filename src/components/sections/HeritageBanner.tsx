@@ -25,12 +25,14 @@ export function HeritageBanner() {
 
       <div className="relative mx-auto w-full max-w-[1600px] px-5 py-20 sm:px-8 lg:px-12">
         <Eyebrow className="text-primary-foreground/70">Misiones, Argentina</Eyebrow>
+        <p className="mt-4 max-w-3xl font-sans text-sm uppercase tracking-[0.18em] text-primary-foreground/75">
+          Born where yerba mate has been a ritual for generations.
+        </p>
         <RevealText
           as="p"
           className="mt-4 max-w-2xl font-display text-[clamp(1.75rem,4vw,3rem)] uppercase leading-[1.05] tracking-[0.06em] text-primary-foreground"
         >
-          Born on the land where yerba mate has been a ritual for generations — Mateada brings that
-          heritage to modern life.
+          Bringing heritage to modern life.
         </RevealText>
       </div>
     </section>

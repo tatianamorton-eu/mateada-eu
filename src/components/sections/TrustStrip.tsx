@@ -6,7 +6,7 @@ const items = [
   { icon: LeafIcon, label: "Sustained energy without the crash" },
   { icon: TargetIcon, label: "Focus & clarity for body & mind" },
   { icon: StomachIcon, label: "Gentle on your system, no jitters" },
-  { icon: GlobeIcon, label: "Made for modern life — from Europe, inspired by nature" },
+  { icon: GlobeIcon, label: "Made for modern life. Inspired by nature" },
 ] as const;
 
 export function TrustStrip() {

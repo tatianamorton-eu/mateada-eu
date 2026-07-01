@@ -2,11 +2,8 @@ import * as React from "react";
 import { ProductVisual } from "@/components/product/ProductVisual";
 import { WaitlistDialog } from "@/components/product/WaitlistDialog";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
 import productCaja from "@/assets/brand/product-caja.webp";
 import productBag from "@/assets/brand/product-bag.webp";
-
-const INK = "#1e2a16";
 
 const products = [
   {
@@ -47,7 +44,6 @@ export function ProductShowcase() {
 }
 
 function CollectionCard({ product }: { product: (typeof products)[number] }) {
-  const [mode, setMode] = React.useState<"once" | "subscribe">("once");
   const [open, setOpen] = React.useState(false);
 
   const openDialog = React.useCallback(() => setOpen(true), []);
@@ -62,17 +58,9 @@ function CollectionCard({ product }: { product: (typeof products)[number] }) {
     [openDialog],
   );
 
-  const handleModeToggle = React.useCallback(
-    (e: React.MouseEvent) => {
-      e.stopPropagation();
-      setMode((m) => (m === "once" ? "subscribe" : "once"));
-    },
-    [],
-  );
-
   return (
     <article
-      className="flex flex-col overflow-hidden rounded-2xl bg-sage text-center cursor-pointer"
+      className="flex flex-col overflow-hidden rounded-2xl bg-[#2a3d1a] text-center cursor-pointer"
       onClick={openDialog}
       onKeyDown={handleKeyDown}
       tabIndex={0}
@@ -80,10 +68,7 @@ function CollectionCard({ product }: { product: (typeof products)[number] }) {
       aria-label={`Buy ${product.title} — ${product.price}`}
     >
       <div className="px-6 pb-1 pt-5 sm:px-8 sm:pt-6">
-        <h3
-          className="font-display text-[clamp(1.55rem,2.3vw,2rem)] font-semibold uppercase leading-tight tracking-[0.07em]"
-          style={{ color: INK }}
-        >
+        <h3 className="font-display text-[clamp(1.55rem,2.3vw,2rem)] font-semibold uppercase leading-tight tracking-[0.07em] text-white">
           {product.title}
         </h3>
       </div>
@@ -92,44 +77,29 @@ function CollectionCard({ product }: { product: (typeof products)[number] }) {
         <ProductVisual src={product.src} alt={product.title} imageHeight={product.imageHeight} />
       </div>
 
-      <div className="border-t border-foreground/15 px-6 pb-5 pt-4 sm:px-8 sm:pb-6 sm:pt-5">
-        <p
-          className="mb-4 text-sm leading-relaxed sm:text-[0.9rem]"
-          style={{ color: INK }}
-        >
+      <div className="border-t border-white/15 px-6 pb-5 pt-4 sm:px-8 sm:pb-6 sm:pt-5">
+        <p className="mb-4 text-sm leading-relaxed text-white/80 sm:text-[0.9rem]">
           {product.description}
         </p>
 
         <Button
-          variant="solid"
+          variant="invert"
           magnetic={false}
           onClick={openDialog}
-          className="w-full py-3.5 text-sm tracking-[0.2em] sm:py-4"
+          className="w-full flex-col gap-0.5 py-3 whitespace-normal"
         >
-          {mode === "subscribe" ? "Subscribe" : "Buy now"}
+          <span className="text-[0.65rem] tracking-[0.22em]">BUY NOW</span>
+          <span className="font-display text-2xl font-semibold leading-none">{product.price}</span>
         </Button>
 
-        <div className="mt-4">
-          <p
-            className="font-display text-2xl font-semibold sm:text-3xl"
-            style={{ color: INK }}
-          >
-            {mode === "subscribe" ? product.subscribePrice.split(" ")[0] : product.price}
-          </p>
-          <button
-            type="button"
-            onClick={handleModeToggle}
-            className={cn(
-              "mt-1 text-xs uppercase tracking-[0.15em] transition-opacity",
-              mode === "subscribe"
-                ? "hover:opacity-100 opacity-80"
-                : "hover:opacity-100 opacity-70",
-            )}
-            style={{ color: INK }}
-          >
-            {mode === "subscribe" ? "← one-time" : `Subscribe · ${product.subscribePrice}`}
-          </button>
-        </div>
+        <Button
+          variant="invert"
+          magnetic={false}
+          onClick={openDialog}
+          className="mt-3 w-full py-3.5"
+        >
+          JOIN THE WAITLIST
+        </Button>
       </div>
 
       <WaitlistDialog open={open} onOpenChange={setOpen} productTitle={product.title} />
