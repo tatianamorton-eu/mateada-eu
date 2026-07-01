@@ -33,7 +33,7 @@ export function ProductShowcase() {
             The Mateada collection.
           </h2>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+        <div className="grid gap-4 md:grid-cols-2 md:gap-6">
           {products.map((product) => (
             <CollectionCard key={product.title} product={product} />
           ))}

@@ -81,7 +81,7 @@ export function SiteHeader() {
               src={logoUrl}
               alt="Mateada"
               className={cn(
-                "h-20 w-auto transition-[filter] duration-500 md:h-24 lg:h-28 xl:h-36 2xl:h-40",
+                "h-14 w-auto transition-[filter] duration-500 sm:h-16 md:h-20 xl:h-24 2xl:h-28",
                 !scrolled ? "[filter:brightness(0)_invert(1)]" : "[filter:none]",
               )}
               width={600}
@@ -93,7 +93,7 @@ export function SiteHeader() {
            * Desktop nav — three short items only, visible at lg (1024 px+).
            * The long B2B label lives in the hamburger menu at all viewport widths.
            */}
-          <nav aria-label="Primary" className="hidden items-center gap-6 lg:flex xl:gap-8">
+          <nav aria-label="Primary" className="hidden items-center gap-6 xl:flex 2xl:gap-8">
             {headerNavItems.map((item) => (
               <a
                 key={item.href}
@@ -114,7 +114,7 @@ export function SiteHeader() {
             {/* Shop Now — desktop only (lg+) */}
             <Button
               variant="solid"
-              className="hidden px-8 py-4 text-sm lg:inline-flex"
+              className="hidden px-8 py-4 text-sm xl:inline-flex"
               onClick={() => navigate("#shop")}
             >
               Shop now
