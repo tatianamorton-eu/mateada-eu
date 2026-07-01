@@ -3,7 +3,6 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
-import { useIsTouchDevice } from "@/hooks/use-is-touch-device";
 import ritualWomen from "@/assets/brand/ritual-women-lg.webp";
 import ritualMen from "@/assets/brand/ritual-men-lg.webp";
 
@@ -28,17 +27,9 @@ const RECIPES: Record<Extract<Tab, "Traditional Mateada" | "Mate Latte">, string
   ],
 };
 
-// ─── media panel ──────────────────────────────────────────────────────────────
+// ─── video panel ──────────────────────────────────────────────────────────────
 
-function VideoPanel({
-  src,
-  label,
-  visible,
-}: {
-  src: string;
-  label: string;
-  visible: boolean;
-}) {
+function VideoPanel({ src, label, visible }: { src: string; label: string; visible: boolean }) {
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
   React.useEffect(() => {
@@ -76,77 +67,59 @@ function VideoPanel({
 // ─── movement panel ────────────────────────────────────────────────────────────
 
 function MovementPanel({ visible }: { visible: boolean }) {
-  const isTouch = useIsTouchDevice();
-  const [scrollX, setScrollX] = React.useState(0);
-  const trackRef = React.useRef<HTMLDivElement>(null);
+  const img1Ref = React.useRef<HTMLDivElement>(null);
+  const img2Ref = React.useRef<HTMLDivElement>(null);
 
-  const images = [
-    { src: ritualWomen, alt: "Woman enjoying Mateada in a wellness moment." },
-    { src: ritualMen, alt: "Man enjoying Mateada as part of his daily ritual." },
-  ];
-
-  const scrollTo = (idx: number) => {
-    if (!trackRef.current) return;
-    const child = trackRef.current.children[idx] as HTMLElement;
-    trackRef.current.scrollTo({ left: child.offsetLeft, behavior: "smooth" });
-  };
-
-  const handleScroll = () => {
-    if (!trackRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = trackRef.current;
-    setScrollX(scrollLeft / (scrollWidth - clientWidth));
-  };
+  useGSAP(
+    () => {
+      if (!visible) {
+        gsap.set([img1Ref.current, img2Ref.current], { clearProps: "x,opacity" });
+        return;
+      }
+      gsap.fromTo(
+        img1Ref.current,
+        { x: -24, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.65, ease: "power3.out" },
+      );
+      gsap.fromTo(
+        img2Ref.current,
+        { x: 24, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.65, delay: 0.1, ease: "power3.out" },
+      );
+    },
+    { dependencies: [visible] },
+  );
 
   return (
     <div
       className={cn(
-        "absolute inset-0 transition-opacity duration-700 flex flex-col",
+        "absolute inset-0 transition-opacity duration-500",
         visible ? "opacity-100" : "opacity-0 pointer-events-none",
       )}
     >
-      {/* scrollable track */}
-      <div
-        ref={trackRef}
-        onScroll={handleScroll}
-        className="flex flex-1 snap-x snap-mandatory overflow-x-auto scrollbar-none"
-        style={{ scrollSnapType: "x mandatory" }}
-      >
-        {images.map((img) => (
-          <div
-            key={img.src}
-            className="relative h-full w-full shrink-0 snap-center"
-            style={{ scrollSnapAlign: "center" }}
-          >
-            <img
-              src={img.src}
-              alt={img.alt}
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* dot indicators */}
-      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-        {images.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={`View image ${i + 1}`}
-            onClick={() => scrollTo(i)}
-            className={cn(
-              "h-1.5 rounded-full transition-all duration-300",
-              scrollX < 0.5 ? (i === 0 ? "w-5 bg-white" : "w-1.5 bg-white/50") : (i === 1 ? "w-5 bg-white" : "w-1.5 bg-white/50"),
-            )}
+      <div className="flex h-full gap-2">
+        <div ref={img1Ref} className="flex-1 overflow-hidden rounded-xl">
+          <img
+            src={ritualWomen}
+            alt="Woman enjoying Mateada in a wellness moment."
+            className="h-full w-full object-cover"
+            loading="lazy"
           />
-        ))}
+        </div>
+        <div ref={img2Ref} className="flex-1 overflow-hidden rounded-xl">
+          <img
+            src={ritualMen}
+            alt="Man enjoying Mateada as part of his daily ritual."
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
       </div>
     </div>
   );
 }
 
-// ─── main component ────────────────────────────────────────────────────────────
+// ─── main ─────────────────────────────────────────────────────────────────────
 
 export function RitualGuide() {
   const [active, setActive] = React.useState<Tab>("Traditional Mateada");
@@ -155,32 +128,34 @@ export function RitualGuide() {
   const tabsRef = React.useRef<HTMLDivElement>(null);
   const contentRef = React.useRef<HTMLDivElement>(null);
 
-  // Entrance animations
+  // Entrance — opacity-only on the content to avoid scroll jitter from large video
   useGSAP(
     () => {
       if (!sectionRef.current) return;
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 78%",
+          start: "top 80%",
           once: true,
         },
       });
       tl.fromTo(
         headingRef.current,
-        { yPercent: 18, opacity: 0 },
-        { yPercent: 0, opacity: 1, duration: 0.9, ease: "power3.out" },
-      ).fromTo(
-        tabsRef.current,
-        { yPercent: 14, opacity: 0 },
-        { yPercent: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
-        "-=0.5",
-      ).fromTo(
-        contentRef.current,
         { yPercent: 10, opacity: 0 },
         { yPercent: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-        "-=0.4",
-      );
+      )
+        .fromTo(
+          tabsRef.current,
+          { yPercent: 8, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
+          "-=0.45",
+        )
+        .fromTo(
+          contentRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.7, ease: "power2.out" },
+          "-=0.35",
+        );
     },
     { scope: sectionRef as React.RefObject<HTMLElement> },
   );
@@ -192,7 +167,7 @@ export function RitualGuide() {
     <section
       ref={sectionRef}
       id="ritual"
-      className="border-b border-border bg-card px-4 py-14 sm:px-8 sm:py-20 lg:px-12"
+      className="border-b border-border bg-card px-4 py-8 sm:px-8 sm:py-12 lg:px-12"
     >
       <div className="mx-auto max-w-[1500px]">
         {/* Heading */}
@@ -206,7 +181,7 @@ export function RitualGuide() {
         {/* Tab bar */}
         <div
           ref={tabsRef}
-          className="mt-8 flex flex-wrap gap-2"
+          className="mt-5 flex flex-wrap gap-2"
           role="tablist"
           aria-label="Preparation method"
         >
@@ -218,7 +193,7 @@ export function RitualGuide() {
               aria-selected={active === tab}
               onClick={() => setActive(tab)}
               className={cn(
-                "border px-4 py-2.5 text-xs font-medium uppercase tracking-[0.16em] transition-colors",
+                "border px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors",
                 active === tab
                   ? "border-foreground bg-foreground text-background"
                   : "border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground",
@@ -232,13 +207,13 @@ export function RitualGuide() {
         {/* Content grid */}
         <div
           ref={contentRef}
-          className="mt-10 grid gap-8 lg:grid-cols-2 lg:gap-14"
+          className="mt-6 grid gap-5 lg:grid-cols-2 lg:gap-8"
         >
-          {/* Left — steps (hidden on "Join the Movement") */}
+          {/* Left — recipe steps */}
           <div
             className={cn(
               "flex flex-col justify-center transition-opacity duration-500",
-              isRecipe ? "opacity-100" : "opacity-0 pointer-events-none lg:block",
+              isRecipe ? "opacity-100" : "opacity-0 pointer-events-none",
             )}
             aria-hidden={!isRecipe}
           >
@@ -247,9 +222,9 @@ export function RitualGuide() {
                 {steps.map((step, i) => (
                   <li
                     key={step}
-                    className="flex items-center gap-5 border-t border-border py-4 text-sm uppercase tracking-[0.15em] text-foreground first:border-t-0"
+                    className="flex items-center gap-4 border-t border-border py-3 text-sm uppercase tracking-[0.15em] text-foreground first:border-t-0"
                   >
-                    <span className="font-display text-4xl font-light text-foreground/20 leading-none">
+                    <span className="font-display text-3xl font-light text-foreground/20 leading-none">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {step}
@@ -260,7 +235,7 @@ export function RitualGuide() {
           </div>
 
           {/* Right — media */}
-          <div className="relative overflow-hidden rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.14)] aspect-[3/4] w-full lg:aspect-[4/5]">
+          <div className="relative overflow-hidden rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12)] aspect-[3/4] w-full lg:aspect-[4/3]">
             <VideoPanel
               src="/videos/classic-mateada.mov"
               label="Traditional Mateada preparation"
