@@ -4,7 +4,7 @@ import { useScrollToHash } from "@/components/motion/SmoothScrollProvider";
 import { Button } from "@/components/ui/Button";
 import { MenuIcon } from "@/components/ui/icons";
 import { MobileNav } from "./MobileNav";
-import logoUrl from "@/assets/brand/logo.webp";
+import logoUrl from "@/assets/brand/logo-header.webp";
 
 const navItems = [
   { label: "Shop", href: "#shop" },
@@ -43,7 +43,7 @@ export function SiteHeader() {
             : "border-b border-transparent bg-transparent",
         )}
       >
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-5 py-3 sm:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-5 py-1.5 sm:px-8 sm:py-2 lg:px-12">
           <a
             href="#top"
             onClick={(event) => {
@@ -56,13 +56,16 @@ export function SiteHeader() {
             <img
               src={logoUrl}
               alt="Mateada"
-              className="h-10 w-auto sm:h-12"
-              width={620}
-              height={350}
+              className={cn(
+                "h-28 w-auto transition-[filter] duration-500 sm:h-32 lg:h-40",
+                !scrolled ? "[filter:brightness(0)_invert(1)]" : "[filter:none]",
+              )}
+              width={600}
+              height={400}
             />
           </a>
 
-          <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
+          <nav aria-label="Primary" className="hidden items-center gap-5 md:flex">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -71,10 +74,18 @@ export function SiteHeader() {
                   event.preventDefault();
                   navigate(item.href);
                 }}
-                className="group relative text-sm font-medium uppercase tracking-[0.18em] text-foreground"
+                className={cn(
+                  "group relative text-sm font-semibold uppercase tracking-[0.18em] transition-colors duration-500",
+                  !scrolled ? "text-white" : "text-foreground",
+                )}
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 h-px w-0 bg-foreground transition-all duration-300 group-hover:w-full" />
+                <span
+                  className={cn(
+                    "absolute -bottom-1 left-0 h-px w-0 transition-all duration-300 group-hover:w-full",
+                    !scrolled ? "bg-white" : "bg-foreground",
+                  )}
+                />
               </a>
             ))}
           </nav>

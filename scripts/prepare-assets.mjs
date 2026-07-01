@@ -154,4 +154,14 @@ await webp(sharp(src("inspo_path_0.png")), out("texture-powder.webp"), {
   quality: 68,
 });
 
+// New hero assets (July 2026 redesign).
+// LOGO.png is already fully transparent — just compress/resize for header.
+await webp(sharp(src("LOGO.png")), out("logo-header.webp"), { width: 600, quality: 95 });
+// PATH.png — new hero background, vivid green powder macro.
+await webp(sharp(src("PATH.png")), out("hero-path-lg.webp"), { width: 1920, quality: 78 });
+await webp(sharp(src("PATH.png")), out("hero-path-sm.webp"), { width: 900, quality: 75 });
+// stick_banner.png — hero hover state, shows the product with benefits callouts.
+await webp(sharp(src("stick_banner.png")), out("hero-stick-lg.webp"), { width: 1920, quality: 78 });
+await webp(sharp(src("stick_banner.png")), out("hero-stick-sm.webp"), { width: 900, quality: 75 });
+
 console.log("done");
