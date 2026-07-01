@@ -1,5 +1,5 @@
 {
-  "name": "tanstack_start_ts",
+  "name": "mateada-eu",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -15,11 +15,6 @@
     "@gsap/react": "^2.1.2",
     "@radix-ui/react-slot": "^1.2.4",
     "@supabase/supabase-js": "^2.108.2",
-    "@tailwindcss/vite": "^4.2.1",
-    "@tanstack/react-query": "^5.83.0",
-    "@tanstack/react-router": "^1.168.25",
-    "@tanstack/react-start": "^1.167.50",
-    "@tanstack/router-plugin": "^1.167.28",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gsap": "^3.15.0",
@@ -27,13 +22,11 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwind-merge": "^3.5.0",
-    "tailwindcss": "^4.2.1",
-    "vaul": "^1.1.2",
-    "vite-tsconfig-paths": "^6.0.2"
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
-    "@lovable.dev/vite-tanstack-config": "2.6.2",
+    "@tailwindcss/vite": "^4.2.1",
     "@types/node": "^22.16.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
@@ -44,11 +37,12 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
-    "nitro": "3.0.260603-beta",
     "prettier": "^3.7.3",
     "sharp": "^0.35.2",
+    "tailwindcss": "^4.2.1",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
-    "vite": "^8.0.16"
+    "vite": "^8.0.16",
+    "vite-tsconfig-paths": "^6.0.2"
   }
 }

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { useGSAP } from "@gsap/react";
 import { Drawer } from "vaul";
 import { gsap } from "@/lib/gsap";
@@ -19,22 +18,20 @@ type WaitlistDialogProps = {
 function useWaitlistForm(productTitle: string, open: boolean) {
   const [email, setEmail] = React.useState("");
   const [status, setStatus] = React.useState<"idle" | "submitting" | "done" | "error">("idle");
-  const record = useServerFn(recordBuyNow);
 
   React.useEffect(() => {
     if (!open) return;
     setStatus("idle");
     setEmail("");
-    record({ data: { product: productTitle } }).catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
+    recordBuyNow({ data: { product: productTitle } }).catch(() => {});
+  }, [open, productTitle]);
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!email.trim()) return;
     setStatus("submitting");
     try {
-      await record({ data: { product: productTitle, email: email.trim() } });
+      await recordBuyNow({ data: { product: productTitle, email: email.trim() } });
       setStatus("done");
     } catch {
       setStatus("error");

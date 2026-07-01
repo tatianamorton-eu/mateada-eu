@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { useGSAP } from "@gsap/react";
 import { Drawer } from "vaul";
 import { gsap } from "@/lib/gsap";
@@ -12,7 +11,6 @@ import { CloseIcon } from "@/components/ui/icons";
 function useB2BForm(open: boolean) {
   const [email, setEmail] = React.useState("");
   const [status, setStatus] = React.useState<"idle" | "submitting" | "done" | "error">("idle");
-  const record = useServerFn(recordBuyNow);
 
   React.useEffect(() => {
     if (!open) return;
@@ -25,7 +23,7 @@ function useB2BForm(open: boolean) {
     if (!email.trim()) return;
     setStatus("submitting");
     try {
-      await record({ data: { product: "B2B Inquiry", email: email.trim() } });
+      await recordBuyNow({ data: { product: "B2B Inquiry", email: email.trim() } });
       setStatus("done");
     } catch {
       setStatus("error");

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { recordBuyNow } from "@/lib/buy-now.functions";
 import { Heading } from "@/components/ui/Heading";
 import { Button } from "@/components/ui/Button";
@@ -7,14 +6,13 @@ import { Button } from "@/components/ui/Button";
 export function NewsletterCta() {
   const [email, setEmail] = React.useState("");
   const [status, setStatus] = React.useState<"idle" | "submitting" | "done" | "error">("idle");
-  const record = useServerFn(recordBuyNow);
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!email.trim()) return;
     setStatus("submitting");
     try {
-      await record({ data: { product: "Newsletter", email: email.trim() } });
+      await recordBuyNow({ data: { product: "Newsletter", email: email.trim() } });
       setStatus("done");
     } catch {
       setStatus("error");
