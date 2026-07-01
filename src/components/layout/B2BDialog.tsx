@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import { Drawer } from "vaul";
 import { gsap } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
-import { recordBuyNow } from "@/lib/buy-now.functions";
+import { recordB2BEmail } from "@/lib/buy-now.functions";
 import { useIsTouchDevice } from "@/hooks/use-is-touch-device";
 import { Button } from "@/components/ui/Button";
 import { CloseIcon } from "@/components/ui/icons";
@@ -23,7 +23,7 @@ function useB2BForm(open: boolean) {
     if (!email.trim()) return;
     setStatus("submitting");
     try {
-      await recordBuyNow({ data: { product: "B2B Inquiry", email: email.trim() } });
+      await recordB2BEmail(email.trim());
       setStatus("done");
     } catch {
       setStatus("error");

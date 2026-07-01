@@ -36,6 +36,17 @@ export async function recordSubscriberEmail(email: string): Promise<{ ok: boolea
   return { ok: true };
 }
 
+/** Insert a B2B inquiry email into b2b_emails. */
+export async function recordB2BEmail(email: string): Promise<{ ok: boolean }> {
+  const validated = validateEmail(email);
+  const { error } = await supabase.from("b2b_emails").insert({ email: validated, source: "b2b" });
+  if (error) {
+    console.error("[Supabase] b2b_emails insert failed:", error);
+    throw new Error(error.message);
+  }
+  return { ok: true };
+}
+
 /** Legacy: records B2B and other misc events in buy_now_events. */
 export async function recordBuyNow(input: { data: { product: string; email?: string } }) {
   const product = String(input.data?.product ?? "")

@@ -10,20 +10,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ─── data ─────────────────────────────────────────────────────────────────────
 
-const TABS = ["Traditional Mateada", "Mateada Latte", "Join the Movement"] as const;
+const TABS = ["Mateada Latte", "Traditional Mateada", "Join the Movement"] as const;
 type Tab = (typeof TABS)[number];
 
 const RECIPES: Record<Extract<Tab, "Traditional Mateada" | "Mateada Latte">, string[]> = {
   "Traditional Mateada": [
     "Hot or cold water",
-    "One Mateada Stick or one teaspoon of Mateada",
-    "Whisk with an electric whisk or electric shaker",
+    "One stick or one teaspoon of Mateada",
+    "Whisk until smooth",
+    "Enjoy hot or over ice",
   ],
   "Mateada Latte": [
     "Hot or cold milk",
-    "One Mateada Stick or one teaspoon of Mateada",
-    "Whisk with an electric whisk or electric shaker",
-    "Creamy, delicious",
+    "One stick or one teaspoon of Mateada",
+    "Whisk until creamy",
+    "Enjoy hot or over ice",
   ],
 };
 
@@ -122,7 +123,7 @@ function MovementPanel({ visible }: { visible: boolean }) {
 // ─── main ─────────────────────────────────────────────────────────────────────
 
 export function RitualGuide() {
-  const [active, setActive] = React.useState<Tab>("Traditional Mateada");
+  const [active, setActive] = React.useState<Tab>("Mateada Latte");
   const sectionRef = React.useRef<HTMLElement>(null);
   const headingRef = React.useRef<HTMLHeadingElement>(null);
   const tabsRef = React.useRef<HTMLDivElement>(null);
@@ -232,12 +233,12 @@ export function RitualGuide() {
             )}
           >
             <VideoPanel
-              src="/videos/classic-mateada.mov"
+              src="/videos/classic-mateada.mp4"
               label="Traditional Mateada preparation"
               visible={active === "Traditional Mateada"}
             />
             <VideoPanel
-              src="/videos/mateada-latte.mov"
+              src="/videos/mateada-latte.mp4"
               label="Mateada Latte preparation"
               visible={active === "Mateada Latte"}
             />

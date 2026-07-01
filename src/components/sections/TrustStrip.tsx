@@ -18,7 +18,7 @@ export function TrustStrip() {
           return (
             <div
               key={item.label}
-              className={`flex w-[78vw] shrink-0 snap-start flex-col items-start gap-3 sm:w-[40vw] md:w-auto md:items-center md:text-center lg:items-center lg:text-center${index === items.length - 1 ? " md:col-span-2 md:justify-self-center md:max-w-[50%]" : ""}`}
+              className={`flex w-[78vw] shrink-0 snap-start flex-col items-start gap-3 sm:w-[40vw] md:w-auto md:items-center md:text-center lg:col-span-1 lg:items-center lg:text-center lg:justify-self-auto${index === items.length - 1 ? " md:col-span-2 md:justify-self-center md:max-w-[50%] lg:col-span-1 lg:max-w-full lg:justify-self-auto" : ""}`}
             >
               <Icon className="h-7 w-7 text-primary-foreground/85" />
               <RevealText

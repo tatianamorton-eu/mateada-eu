@@ -96,7 +96,7 @@ export function Hero() {
     >
       {/* Image block — on mobile: natural 2:1 aspect ratio; on desktop: absolute full-bleed */}
       <div
-        className="relative aspect-[2/1] w-full overflow-hidden sm:absolute sm:inset-0 sm:aspect-auto"
+        className="relative aspect-[2/1] min-h-[50svh] w-full overflow-hidden sm:absolute sm:inset-0 sm:aspect-auto sm:min-h-0"
         onTouchEnd={isTouch && !reducedMotion ? handleTouchEnd : undefined}
       >
         <ParallaxLayer range={10} className="absolute inset-0">

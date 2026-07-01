@@ -38,8 +38,8 @@ export function ProductVisual({ src, alt, imageHeight = "max-h-[360px] sm:max-h-
       raf = requestAnimationFrame(animate);
       const t = Date.now() / 1000;
       gsap.set(wrapperRef.current, {
-        rotateX: Math.sin(t * 0.38) * 3.5,
-        rotateY: Math.cos(t * 0.28) * 5,
+        rotateX: Math.sin(t * 0.4) * 7,
+        rotateY: Math.cos(t * 0.3) * 11,
       });
     };
     animate();
