@@ -44,24 +44,29 @@ export function ProductShowcase() {
 }
 
 function CollectionCard({ product }: { product: (typeof products)[number] }) {
-  const [open, setOpen] = React.useState(false);
+  const [dialogMode, setDialogMode] = React.useState<"buy" | "subscribe" | null>(null);
 
-  const openDialog = React.useCallback(() => setOpen(true), []);
+  const openBuyDialog = React.useCallback(() => setDialogMode("buy"), []);
+
+  const openSubscribeDialog = React.useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDialogMode("subscribe");
+  }, []);
 
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        openDialog();
+        openBuyDialog();
       }
     },
-    [openDialog],
+    [openBuyDialog],
   );
 
   return (
     <article
-      className="flex flex-col overflow-hidden rounded-2xl bg-[#2a3d1a] text-center cursor-pointer"
-      onClick={openDialog}
+      className="flex flex-col overflow-hidden rounded-2xl border border-primary-foreground/20 bg-primary text-center cursor-pointer"
+      onClick={openBuyDialog}
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
@@ -85,7 +90,7 @@ function CollectionCard({ product }: { product: (typeof products)[number] }) {
         <Button
           variant="invert"
           magnetic={false}
-          onClick={openDialog}
+          onClick={openBuyDialog}
           className="w-full flex-col gap-0.5 py-3 whitespace-normal"
         >
           <span className="text-[0.65rem] tracking-[0.22em]">BUY NOW</span>
@@ -95,14 +100,22 @@ function CollectionCard({ product }: { product: (typeof products)[number] }) {
         <Button
           variant="invert"
           magnetic={false}
-          onClick={openDialog}
-          className="mt-3 w-full py-3.5"
+          onClick={openSubscribeDialog}
+          className="mt-3 w-full flex-col gap-0.5 py-3 whitespace-normal"
         >
-          JOIN THE WAITLIST
+          <span className="text-[0.65rem] tracking-[0.22em]">SUBSCRIBE</span>
+          <span className="font-display text-xl font-semibold leading-none">
+            {product.subscribePrice}
+          </span>
         </Button>
       </div>
 
-      <WaitlistDialog open={open} onOpenChange={setOpen} productTitle={product.title} />
+      <WaitlistDialog
+        open={dialogMode !== null}
+        onOpenChange={(open) => { if (!open) setDialogMode(null); }}
+        productTitle={product.title}
+        mode={dialogMode ?? "buy"}
+      />
     </article>
   );
 }

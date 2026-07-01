@@ -13,6 +13,7 @@ type WaitlistDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   productTitle: string;
+  mode?: "buy" | "subscribe";
 };
 
 function useWaitlistForm(productTitle: string, open: boolean) {
@@ -50,6 +51,7 @@ function WaitlistForm({
   status,
   submit,
   onClose,
+  mode = "buy",
 }: {
   productTitle: string;
   email: string;
@@ -57,6 +59,7 @@ function WaitlistForm({
   status: "idle" | "submitting" | "done" | "error";
   submit: (e: React.FormEvent) => void;
   onClose: () => void;
+  mode?: "buy" | "subscribe";
 }) {
   if (status === "done") {
     return (
@@ -78,10 +81,12 @@ function WaitlistForm({
     <>
       <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{productTitle}</p>
       <h4 className="mt-2 font-display text-2xl uppercase tracking-[0.12em] text-foreground">
-        Currently out of stock
+        {mode === "subscribe" ? "Join the waitlist" : "Currently out of stock"}
       </h4>
       <p className="mt-3 text-sm text-muted-foreground">
-        Leave your email and we'll notify you the moment it's back.
+        {mode === "subscribe"
+          ? "Leave your email and we'll notify you as soon as subscriptions become available."
+          : "Leave your email and we'll notify you the moment it's back."}
       </p>
       <form onSubmit={submit} className="mt-5 flex flex-col gap-3">
         <input
@@ -119,7 +124,7 @@ function WaitlistForm({
   );
 }
 
-export function WaitlistDialog({ open, onOpenChange, productTitle }: WaitlistDialogProps) {
+export function WaitlistDialog({ open, onOpenChange, productTitle, mode = "buy" }: WaitlistDialogProps) {
   const isTouch = useIsTouchDevice();
   const { email, setEmail, status, submit } = useWaitlistForm(productTitle, open);
   const close = () => onOpenChange(false);
@@ -139,6 +144,7 @@ export function WaitlistDialog({ open, onOpenChange, productTitle }: WaitlistDia
               status={status}
               submit={submit}
               onClose={close}
+              mode={mode}
             />
           </Drawer.Content>
         </Drawer.Portal>
@@ -155,6 +161,7 @@ export function WaitlistDialog({ open, onOpenChange, productTitle }: WaitlistDia
         status={status}
         submit={submit}
         onClose={close}
+        mode={mode}
       />
     </DesktopDialog>
   );

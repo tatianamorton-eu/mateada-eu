@@ -10,18 +10,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ─── data ─────────────────────────────────────────────────────────────────────
 
-const TABS = ["Traditional Mateada", "Mate Latte", "Join the Movement"] as const;
+const TABS = ["Traditional Mateada", "Mateada Latte", "Join the Movement"] as const;
 type Tab = (typeof TABS)[number];
 
-const RECIPES: Record<Extract<Tab, "Traditional Mateada" | "Mate Latte">, string[]> = {
+const RECIPES: Record<Extract<Tab, "Traditional Mateada" | "Mateada Latte">, string[]> = {
   "Traditional Mateada": [
     "Hot or cold water",
-    "Mateada",
+    "One Mateada Stick or 1 teaspoon of Mateada",
     "Whisk with an electric whisk or electric shaker",
   ],
-  "Mate Latte": [
+  "Mateada Latte": [
     "Hot or cold milk",
-    "Mateada",
+    "One Mateada Stick or 1 teaspoon of Mateada",
     "Whisk with an electric whisk or electric shaker",
     "Creamy, delicious",
   ],
@@ -160,8 +160,8 @@ export function RitualGuide() {
     { scope: sectionRef as React.RefObject<HTMLElement> },
   );
 
-  const isRecipe = active === "Traditional Mateada" || active === "Mate Latte";
-  const steps = isRecipe ? RECIPES[active] : [];
+  const isRecipe = active === "Traditional Mateada" || active === "Mateada Latte";
+  const steps = isRecipe ? RECIPES[active as Extract<Tab, "Traditional Mateada" | "Mateada Latte">] : [];
 
   return (
     <section
@@ -213,7 +213,7 @@ export function RitualGuide() {
           <div
             className={cn(
               "flex flex-col justify-center transition-opacity duration-500",
-              isRecipe ? "opacity-100" : "opacity-0 pointer-events-none",
+              isRecipe ? "opacity-100" : "opacity-0 pointer-events-none lg:hidden",
             )}
             aria-hidden={!isRecipe}
           >
@@ -235,7 +235,12 @@ export function RitualGuide() {
           </div>
 
           {/* Right — media */}
-          <div className="relative overflow-hidden rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12)] aspect-[3/4] w-full lg:aspect-[4/3]">
+          <div
+            className={cn(
+              "relative overflow-hidden rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12)] aspect-[3/4] w-full lg:aspect-[4/3]",
+              !isRecipe && "lg:col-span-2 lg:justify-self-center lg:max-w-[50%]",
+            )}
+          >
             <VideoPanel
               src="/videos/classic-mateada.mov"
               label="Traditional Mateada preparation"
@@ -243,8 +248,8 @@ export function RitualGuide() {
             />
             <VideoPanel
               src="/videos/mateada-latte.mov"
-              label="Mate Latte preparation"
-              visible={active === "Mate Latte"}
+              label="Mateada Latte preparation"
+              visible={active === "Mateada Latte"}
             />
             <MovementPanel visible={active === "Join the Movement"} />
           </div>
