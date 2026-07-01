@@ -18,9 +18,11 @@ export function Hero() {
   const reducedMotion = usePrefersReducedMotion();
   const stickRef = React.useRef<HTMLDivElement | null>(null);
   const textRef = React.useRef<HTMLDivElement | null>(null);
+  const isHoveredRef = React.useRef(false);
 
   const handleHoverIn = React.useCallback(() => {
-    if (isTouch || reducedMotion) return;
+    if (isTouch || reducedMotion || isHoveredRef.current) return;
+    isHoveredRef.current = true;
     gsap.to(stickRef.current, {
       autoAlpha: 1,
       duration: 0.75,
@@ -31,7 +33,8 @@ export function Hero() {
   }, [isTouch, reducedMotion]);
 
   const handleHoverOut = React.useCallback(() => {
-    if (isTouch || reducedMotion) return;
+    if (isTouch || reducedMotion || !isHoveredRef.current) return;
+    isHoveredRef.current = false;
     gsap.to(stickRef.current, {
       autoAlpha: 0,
       duration: 0.75,
@@ -41,11 +44,28 @@ export function Hero() {
     gsap.to(textRef.current, { autoAlpha: 1, duration: 0.55, ease: "power2.out", overwrite: true });
   }, [isTouch, reducedMotion]);
 
+  // Track mouse position: return to default image in lower corners
+  const handleMouseMove = React.useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      if (isTouch || reducedMotion) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const nx = (e.clientX - rect.left) / rect.width;
+      const ny = (e.clientY - rect.top) / rect.height;
+      // Lower corners (bottom 35% + within 20% of left/right edge) = neutral zone
+      if (ny > 0.65 && (nx < 0.2 || nx > 0.8)) {
+        handleHoverOut();
+      } else {
+        handleHoverIn();
+      }
+    },
+    [isTouch, reducedMotion, handleHoverIn, handleHoverOut],
+  );
+
   return (
     <section
       id="top"
       className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-[#3a4a1c]"
-      onMouseEnter={handleHoverIn}
+      onMouseMove={!isTouch && !reducedMotion ? handleMouseMove : undefined}
       onMouseLeave={handleHoverOut}
     >
       {/* Stacked background images — PATH default, stick on hover */}
@@ -113,7 +133,7 @@ export function Hero() {
         <div className="mt-10">
           <Button
             variant="invert"
-            className="border-white bg-white text-[#2a3510] hover:bg-transparent hover:text-white"
+            className="border-white bg-white text-[#2a3510] hover:bg-transparent hover:text-white px-10 py-5 text-sm"
             onClick={() => scrollTo("#shop")}
             magnetic={false}
           >

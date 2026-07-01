@@ -16,12 +16,12 @@ type Tab = (typeof TABS)[number];
 const RECIPES: Record<Extract<Tab, "Traditional Mateada" | "Mateada Latte">, string[]> = {
   "Traditional Mateada": [
     "Hot or cold water",
-    "One Mateada Stick or 1 teaspoon of Mateada",
+    "One Mateada Stick or one teaspoon of Mateada",
     "Whisk with an electric whisk or electric shaker",
   ],
   "Mateada Latte": [
     "Hot or cold milk",
-    "One Mateada Stick or 1 teaspoon of Mateada",
+    "One Mateada Stick or one teaspoon of Mateada",
     "Whisk with an electric whisk or electric shaker",
     "Creamy, delicious",
   ],

@@ -3,7 +3,9 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { CloseIcon } from "@/components/ui/icons";
 
-type NavItem = { label: string; href: string };
+type NavItem =
+  | { label: string; href: string; onClick?: never }
+  | { label: string; href?: never; onClick: () => void };
 
 export function MobileNav({
   open,
@@ -17,7 +19,7 @@ export function MobileNav({
   onNavigate: (href: string) => void;
 }) {
   const containerRef = React.useRef<HTMLDivElement | null>(null);
-  const linksRef = React.useRef<HTMLAnchorElement[]>([]);
+  const linksRef = React.useRef<HTMLElement[]>([]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -64,23 +66,38 @@ export function MobileNav({
         </button>
       </div>
       <nav className="mt-12 flex flex-1 flex-col justify-center gap-2">
-        {items.map((item, index) => (
-          <div key={item.href} className="overflow-hidden">
-            <a
-              ref={(el) => {
-                if (el) linksRef.current[index] = el;
-              }}
-              href={item.href}
-              onClick={(event) => {
-                event.preventDefault();
-                onNavigate(item.href);
-              }}
-              className="block py-3 font-display text-4xl uppercase tracking-[0.08em] text-foreground"
-            >
-              {item.label}
-            </a>
-          </div>
-        ))}
+        {items.map((item, index) => {
+          const itemClass = "block py-3 font-display text-4xl uppercase tracking-[0.08em] text-foreground text-left";
+          if (item.onClick) {
+            return (
+              <div key={item.label} className="overflow-hidden">
+                <button
+                  type="button"
+                  ref={(el) => { if (el) linksRef.current[index] = el; }}
+                  onClick={() => { item.onClick(); onClose(); }}
+                  className={itemClass}
+                >
+                  {item.label}
+                </button>
+              </div>
+            );
+          }
+          return (
+            <div key={item.href} className="overflow-hidden">
+              <a
+                ref={(el) => { if (el) linksRef.current[index] = el; }}
+                href={item.href}
+                onClick={(event) => {
+                  event.preventDefault();
+                  onNavigate(item.href);
+                }}
+                className={itemClass}
+              >
+                {item.label}
+              </a>
+            </div>
+          );
+        })}
       </nav>
     </div>
   );

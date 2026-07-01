@@ -4,17 +4,17 @@ import { useScrollToHash } from "@/components/motion/SmoothScrollProvider";
 import { Button } from "@/components/ui/Button";
 import { MenuIcon } from "@/components/ui/icons";
 import { MobileNav } from "./MobileNav";
+import { B2BDialog } from "./B2BDialog";
 import logoUrl from "@/assets/brand/logo-header.webp";
 
-const navItems = [
-  { label: "Shop", href: "#shop" },
-  { label: "Mateada Ritual", href: "#ritual" },
-  { label: "Benefits", href: "#benefits" },
-];
+type NavItemDef =
+  | { label: string; href: string; onClick?: never }
+  | { label: string; href?: never; onClick: () => void };
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const [b2bOpen, setB2bOpen] = React.useState(false);
   const scrollTo = useScrollToHash();
 
   React.useEffect(() => {
@@ -31,6 +31,13 @@ export function SiteHeader() {
     },
     [scrollTo],
   );
+
+  const navItems: NavItemDef[] = [
+    { label: "Shop", href: "#shop" },
+    { label: "Mateada Ritual", href: "#ritual" },
+    { label: "Benefits", href: "#benefits" },
+    { label: "For Cafés, Studios & Distributors", onClick: () => setB2bOpen(true) },
+  ];
 
   return (
     <>
@@ -56,7 +63,7 @@ export function SiteHeader() {
               src={logoUrl}
               alt="Mateada"
               className={cn(
-                "h-28 w-auto transition-[filter] duration-500 sm:h-32 lg:h-40",
+                "h-32 w-auto transition-[filter] duration-500 sm:h-36 lg:h-48",
                 !scrolled ? "[filter:brightness(0)_invert(1)]" : "[filter:none]",
               )}
               width={600}
@@ -64,36 +71,49 @@ export function SiteHeader() {
             />
           </a>
 
-          <nav aria-label="Primary" className="hidden items-center gap-5 md:flex">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(event) => {
-                  event.preventDefault();
-                  navigate(item.href);
-                }}
-                className={cn(
-                  "group relative text-sm font-semibold uppercase tracking-[0.18em] transition-colors duration-500",
-                  !scrolled ? "text-white" : "text-foreground",
-                )}
-              >
-                {item.label}
+          <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
+            {navItems.map((item) => {
+              const linkClass = cn(
+                "group relative text-base font-semibold uppercase tracking-[0.18em] transition-colors duration-500",
+                !scrolled ? "text-white" : "text-foreground",
+              );
+              const underline = (
                 <span
                   className={cn(
                     "absolute -bottom-1 left-0 h-px w-0 transition-all duration-300 group-hover:w-full",
                     !scrolled ? "bg-white" : "bg-foreground",
                   )}
                 />
-              </a>
-            ))}
+              );
+              if (item.onClick) {
+                return (
+                  <button key={item.label} type="button" onClick={item.onClick} className={linkClass}>
+                    {item.label}
+                    {underline}
+                  </button>
+                );
+              }
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate(item.href);
+                  }}
+                  className={linkClass}
+                >
+                  {item.label}
+                  {underline}
+                </a>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-3">
             <Button
               variant="solid"
-              size="sm"
-              className="hidden md:inline-flex"
+              className="hidden md:inline-flex px-8 py-4 text-sm"
               onClick={() => navigate("#shop")}
             >
               Shop now
@@ -116,6 +136,8 @@ export function SiteHeader() {
         items={navItems}
         onNavigate={navigate}
       />
+
+      <B2BDialog open={b2bOpen} onClose={() => setB2bOpen(false)} />
     </>
   );
 }
