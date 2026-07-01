@@ -6,7 +6,6 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Hero } from "@/components/sections/Hero";
 import { TrustStrip } from "@/components/sections/TrustStrip";
 import { ProductShowcase } from "@/components/sections/ProductShowcase";
-import { ProcessStory } from "@/components/sections/ProcessStory";
 import { HeritageBanner } from "@/components/sections/HeritageBanner";
 import { Benefits } from "@/components/sections/Benefits";
 import { RitualGuide } from "@/components/sections/RitualGuide";
@@ -53,7 +52,6 @@ function Index() {
         <Hero />
         <TrustStrip />
         <ProductShowcase />
-        <ProcessStory />
         <HeritageBanner />
         <Benefits />
         <RitualGuide />

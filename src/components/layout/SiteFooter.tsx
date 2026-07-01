@@ -1,7 +1,6 @@
 const footerNav = [
   { label: "Shop", href: "#shop" },
   { label: "Ritual", href: "#ritual" },
-  { label: "Process", href: "#process" },
   { label: "Benefits", href: "#benefits" },
 ];
 

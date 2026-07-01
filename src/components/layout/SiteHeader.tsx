@@ -9,7 +9,6 @@ import logoUrl from "@/assets/brand/logo-header.webp";
 const navItems = [
   { label: "Shop", href: "#shop" },
   { label: "Ritual", href: "#ritual" },
-  { label: "Process", href: "#process" },
   { label: "Benefits", href: "#benefits" },
 ];
 

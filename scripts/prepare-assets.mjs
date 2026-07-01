@@ -163,57 +163,71 @@ const cajaTransparent = await isolateForeground(src("CAJA.png"), {
 });
 await webp(cajaTransparent, out("product-caja.webp"), { width: 1200, quality: 92 });
 
-// 100g_bag.png — crop the bottom 8 % first (it's the surface cast-shadow / reflection
-// from the photography, not part of the product) then remove the white background.
+// 100g_bag.png — show the full bag (crop only the bottom 10% cast-shadow from
+// the photography surface; the bag base sits at ~87% of the original height).
 const bagMeta = await sharp(src("100g_bag.png")).metadata();
-// Crop bottom 18 % (removes the cast-shadow area below the bag base).
 const bagCropBuffer = await sharp(src("100g_bag.png"))
   .extract({
     left: 0,
     top: 0,
     width: bagMeta.width,
-    height: Math.floor(bagMeta.height * 0.78),
+    height: Math.floor(bagMeta.height * 0.90),
   })
   .toBuffer();
 
-// ERASE FIRST, ISOLATE SECOND — this is the only reliable order.
-// The bag's specular highlight is enclosed by dark packaging pixels so border-
-// flood-fill can never reach it, but pre-erasing the right-half bottom zone
-// before isolation cleanly removes it. "100g" label is centre-aligned (~x 50 %)
-// so erasing x ≥ 52 % is safe; the shine sits at x ≥ 52 %, y ≥ 75 %.
+// ERASE FIRST, ISOLATE SECOND.
+// Two pre-erase zones (both run before flood-fill so the isolateForeground
+// border-fill can't accidentally be confused by them):
+//
+//  A. Full-width bottom strip (y≥93%): the cast-shadow on the photography
+//     surface below the bag base. "100 g" label sits at y≈90%, so y≥93% is safe.
+//     Threshold min-RGB > 200 targets only near-pure-white reflection pixels;
+//     the dark olive bag body (min-RGB ≈ 40–80) is untouched.
+//
+//  B. Bottom-right corner (x≥78%, y≥80%): any residual specular highlight on
+//     the bag's lower-right material surface that is enclosed by dark pixels and
+//     therefore unreachable by the border flood-fill.
+//     x≥78% is safe because all centred text ends by x≈68%.
 const { data: bagRaw, info: bagRawInfo } = await sharp(bagCropBuffer)
   .ensureAlpha()
   .raw()
   .toBuffer({ resolveWithObject: true });
 const { width: brw, height: brh, channels: brc } = bagRawInfo;
-// Right-half specular (x≥52%, y≥75%): light pixels enclosed by dark packaging.
-const szX = Math.floor(brw * 0.52);
-const szY = Math.floor(brh * 0.75);
-for (let y = szY; y < brh; y++) {
-  for (let x = szX; x < brw; x++) {
-    const base = (y * brw + x) * brc;
-    if (Math.min(bagRaw[base], bagRaw[base + 1], bagRaw[base + 2]) > 155) {
-      bagRaw[base + 3] = 0;
-    }
-  }
-}
-// Bottom-strip surface reflection (full width, bottom 12%): photography cast light.
-// Dark bag body min-RGB ≈ 30–70, so threshold 140 is safe.
+
+// Zone A — full-width bottom strip: cast-shadow on the photography surface.
+// "100 g" label sits at ~85% of crop height, so y≥88% is safe.
+// Shadow is a warm gradient; min-RGB > 100 catches even the dark fringe while
+// leaving the dark olive bag body (min-RGB ≈ 40–70) untouched.
 const stripY = Math.floor(brh * 0.88);
 for (let y = stripY; y < brh; y++) {
   for (let x = 0; x < brw; x++) {
     const base = (y * brw + x) * brc;
-    if (Math.min(bagRaw[base], bagRaw[base + 1], bagRaw[base + 2]) > 140) {
+    if (Math.min(bagRaw[base], bagRaw[base + 1], bagRaw[base + 2]) > 100) {
       bagRaw[base + 3] = 0;
     }
   }
 }
+
+// Zone B — bottom-right corner: enclosed specular / shadow on the bag material.
+// x≥70% is past all centred text (~x 68% max), and covers the gap between
+// Zone A's y start (88%) and the artifact at y≈85-88% on the right side.
+const szX = Math.floor(brw * 0.70);
+const szY = Math.floor(brh * 0.78);
+for (let y = szY; y < brh; y++) {
+  for (let x = szX; x < brw; x++) {
+    const base = (y * brw + x) * brc;
+    if (Math.min(bagRaw[base], bagRaw[base + 1], bagRaw[base + 2]) > 100) {
+      bagRaw[base + 3] = 0;
+    }
+  }
+}
+
 // Encode as PNG so isolateForeground's sharp(buffer) can detect the format.
 const bagPreErased = await sharp(bagRaw, {
   raw: { width: brw, height: brh, channels: brc },
 }).png().toBuffer();
 
-// Now isolate: flood-fill removes the main white background.
+// Flood-fill removes the main white background (all border-connected neutral pixels).
 const bagTransparent = await isolateForeground(bagPreErased, {
   mode: "transparent",
   maxLightness: 248,
