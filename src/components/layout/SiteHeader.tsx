@@ -108,6 +108,14 @@ export function SiteHeader() {
                 <span className={underlineClass} />
               </a>
             ))}
+            <button
+              type="button"
+              onClick={() => setB2bOpen(true)}
+              className={linkClass}
+            >
+              For Cafés, Studios & Distributors
+              <span className={underlineClass} />
+            </button>
           </nav>
 
           <div className="flex items-center gap-3">

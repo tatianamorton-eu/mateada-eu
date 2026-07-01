@@ -12,13 +12,13 @@ const items = [
 export function TrustStrip() {
   return (
     <section className="border-b border-primary-foreground/10 bg-primary text-primary-foreground">
-      <div className="mx-auto flex max-w-[1600px] snap-x snap-mandatory gap-8 overflow-x-auto px-5 py-8 sm:px-8 sm:py-10 lg:grid lg:snap-none lg:grid-cols-5 lg:gap-6 lg:overflow-visible lg:px-12">
+      <div className="mx-auto flex max-w-[1600px] snap-x snap-mandatory gap-8 overflow-x-auto px-5 py-8 sm:px-8 sm:py-10 md:grid md:grid-cols-2 md:snap-none md:overflow-visible md:gap-6 lg:grid-cols-5 lg:px-12">
         {items.map((item, index) => {
           const Icon = item.icon;
           return (
             <div
               key={item.label}
-              className="flex w-[78vw] shrink-0 snap-start flex-col items-start gap-3 sm:w-[40vw] lg:w-auto lg:items-center lg:text-center"
+              className={`flex w-[78vw] shrink-0 snap-start flex-col items-start gap-3 sm:w-[40vw] md:w-auto md:items-center md:text-center lg:items-center lg:text-center${index === items.length - 1 ? " md:col-span-2 md:justify-self-center md:max-w-[50%]" : ""}`}
             >
               <Icon className="h-7 w-7 text-primary-foreground/85" />
               <RevealText

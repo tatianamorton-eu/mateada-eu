@@ -90,59 +90,63 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-[#3a4a1c]"
+      className="relative isolate bg-[#3a4a1c] sm:flex sm:min-h-[100svh] sm:items-end sm:overflow-hidden"
       onMouseMove={!isTouch && !reducedMotion ? handleMouseMove : undefined}
       onMouseLeave={!isTouch ? handleHoverOut : undefined}
-      onTouchEnd={isTouch && !reducedMotion ? handleTouchEnd : undefined}
     >
-      {/* Stacked background images — PATH default, stick on hover */}
-      <ParallaxLayer range={10} className="absolute inset-0">
-        {/* Base image: PATH.png macro powder */}
-        <div className="absolute inset-0">
-          <picture>
-            <source media="(max-width: 640px)" srcSet={heroPathSm} />
-            <img
-              src={heroPathLg}
-              alt="Fine-ground yerba mate powder arranged in flowing curves, vibrant olive green."
-              className="h-full w-full object-cover"
-              loading="eager"
-              fetchPriority="high"
-              width={1774}
-              height={887}
-            />
-          </picture>
-        </div>
-
-        {/* Hover image: stick_banner — starts invisible, GSAP fades it in */}
-        <div
-          ref={stickRef}
-          className="absolute inset-0"
-          style={{ opacity: 0, visibility: "hidden" }}
-          aria-hidden="true"
-        >
-          <picture>
-            <source media="(max-width: 640px)" srcSet={heroStickSm} />
-            <img
-              src={heroStickLg}
-              alt=""
-              className="h-full w-full object-cover object-center"
-              loading="lazy"
-              width={1717}
-              height={916}
-            />
-          </picture>
-        </div>
-      </ParallaxLayer>
-
-      {/* Bottom gradient scrim for text legibility */}
+      {/* Image block — on mobile: natural 2:1 aspect ratio; on desktop: absolute full-bleed */}
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#2a3510]/80 via-[#2a3510]/10 to-transparent"
+        className="relative aspect-[2/1] w-full overflow-hidden sm:absolute sm:inset-0 sm:aspect-auto"
+        onTouchEnd={isTouch && !reducedMotion ? handleTouchEnd : undefined}
+      >
+        <ParallaxLayer range={10} className="absolute inset-0">
+          {/* Base image: PATH.png macro powder */}
+          <div className="absolute inset-0">
+            <picture>
+              <source media="(max-width: 640px)" srcSet={heroPathSm} />
+              <img
+                src={heroPathLg}
+                alt="Fine-ground yerba mate powder arranged in flowing curves, vibrant olive green."
+                className="h-full w-full object-cover"
+                loading="eager"
+                fetchPriority="high"
+                width={1774}
+                height={887}
+              />
+            </picture>
+          </div>
+
+          {/* Hover image: stick_banner — starts invisible, GSAP fades it in */}
+          <div
+            ref={stickRef}
+            className="absolute inset-0"
+            style={{ opacity: 0, visibility: "hidden" }}
+            aria-hidden="true"
+          >
+            <picture>
+              <source media="(max-width: 640px)" srcSet={heroStickSm} />
+              <img
+                src={heroStickLg}
+                alt=""
+                className="h-full w-full object-cover object-center"
+                loading="lazy"
+                width={1717}
+                height={916}
+              />
+            </picture>
+          </div>
+        </ParallaxLayer>
+      </div>
+
+      {/* Bottom gradient scrim for text legibility — desktop overlay only */}
+      <div
+        className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-[#2a3510]/80 via-[#2a3510]/10 to-transparent sm:block"
         aria-hidden="true"
       />
 
-      {/* Single content wrapper at the bottom of the section */}
-      <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-14 pt-40 sm:px-8 sm:pb-20 lg:px-12">
-        {/* Text block — fades out on hover */}
+      {/* Content — on mobile: below image with brand-dark bg; on desktop: overlay at bottom */}
+      <div className="relative w-full bg-[#2a3510] px-5 pb-10 pt-8 sm:mx-auto sm:max-w-[1600px] sm:bg-transparent sm:px-8 sm:pb-20 sm:pt-40 lg:px-12">
+        {/* Text block — fades out on hover/tap */}
         <div ref={textRef}>
           <Heading as="h1" size="xl" className="max-w-3xl text-white">
             This is Mateada. Mate made simple.
@@ -156,7 +160,7 @@ export function Hero() {
           </RevealText>
         </div>
 
-        {/* CTA button — always visible, sits below text block */}
+        {/* CTA button — always visible */}
         <div className="mt-10">
           <Button
             variant="invert"

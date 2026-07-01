@@ -126,7 +126,6 @@ export function RitualGuide() {
   const sectionRef = React.useRef<HTMLElement>(null);
   const headingRef = React.useRef<HTMLHeadingElement>(null);
   const tabsRef = React.useRef<HTMLDivElement>(null);
-  const contentRef = React.useRef<HTMLDivElement>(null);
 
   // Entrance — opacity-only on the content to avoid scroll jitter from large video
   useGSAP(
@@ -150,12 +149,6 @@ export function RitualGuide() {
           { yPercent: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
           "-=0.45",
         )
-        .fromTo(
-          contentRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.7, ease: "power2.out" },
-          "-=0.35",
-        );
     },
     { scope: sectionRef as React.RefObject<HTMLElement> },
   );
@@ -205,10 +198,7 @@ export function RitualGuide() {
         </div>
 
         {/* Content grid */}
-        <div
-          ref={contentRef}
-          className="mt-6 grid gap-5 lg:grid-cols-2 lg:gap-8"
-        >
+        <div className="mt-6 grid gap-5 lg:grid-cols-2 lg:gap-8">
           {/* Left — recipe steps */}
           <div
             className={cn(

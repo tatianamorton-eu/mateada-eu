@@ -3,7 +3,8 @@
     "allow": [
       "Bash(node -e ' *)",
       "Bash(grep -E \"\\\\.\\(tsx|ts\\)$\")",
-      "Bash(npx vite *)"
+      "Bash(npx vite *)",
+      "Bash(npm run *)"
     ]
   }
 }
