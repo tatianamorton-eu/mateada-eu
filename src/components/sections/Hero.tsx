@@ -48,6 +48,8 @@ export function Hero() {
   const handleTouchEnd = React.useCallback(
     (e: React.TouchEvent<HTMLElement>) => {
       if (reducedMotion) return;
+      // Don't toggle when tapping the CTA button or any link
+      if ((e.target as HTMLElement).closest("button, a")) return;
       const touch = e.changedTouches[0];
       const rect = e.currentTarget.getBoundingClientRect();
       const nx = (touch.clientX - rect.left) / rect.width;
@@ -90,63 +92,58 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate bg-[#3a4a1c] sm:flex sm:min-h-[100svh] sm:items-end sm:overflow-hidden"
+      className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-[#3a4a1c]"
       onMouseMove={!isTouch && !reducedMotion ? handleMouseMove : undefined}
       onMouseLeave={!isTouch ? handleHoverOut : undefined}
+      onTouchEnd={isTouch && !reducedMotion ? handleTouchEnd : undefined}
     >
-      {/* Image block — on mobile: natural 2:1 aspect ratio; on desktop: absolute full-bleed */}
-      <div
-        className="relative aspect-[2/1] min-h-[50svh] w-full overflow-hidden sm:absolute sm:inset-0 sm:aspect-auto sm:min-h-0"
-        onTouchEnd={isTouch && !reducedMotion ? handleTouchEnd : undefined}
-      >
-        <ParallaxLayer range={10} className="absolute inset-0">
-          {/* Base image: PATH.png macro powder */}
-          <div className="absolute inset-0">
-            <picture>
-              <source media="(max-width: 640px)" srcSet={heroPathSm} />
-              <img
-                src={heroPathLg}
-                alt="Fine-ground yerba mate powder arranged in flowing curves, vibrant olive green."
-                className="h-full w-full object-cover"
-                loading="eager"
-                fetchPriority="high"
-                width={1774}
-                height={887}
-              />
-            </picture>
-          </div>
+      {/* Full-bleed background images — same structure on all screen sizes */}
+      <ParallaxLayer range={10} className="absolute inset-0">
+        {/* Base image */}
+        <div className="absolute inset-0">
+          <picture>
+            <source media="(max-width: 640px)" srcSet={heroPathSm} />
+            <img
+              src={heroPathLg}
+              alt="Fine-ground yerba mate powder arranged in flowing curves, vibrant olive green."
+              className="h-full w-full object-cover"
+              loading="eager"
+              fetchPriority="high"
+              width={1774}
+              height={887}
+            />
+          </picture>
+        </div>
 
-          {/* Hover image: stick_banner — starts invisible, GSAP fades it in */}
-          <div
-            ref={stickRef}
-            className="absolute inset-0"
-            style={{ opacity: 0, visibility: "hidden" }}
-            aria-hidden="true"
-          >
-            <picture>
-              <source media="(max-width: 640px)" srcSet={heroStickSm} />
-              <img
-                src={heroStickLg}
-                alt=""
-                className="h-full w-full object-cover object-center"
-                loading="lazy"
-                width={1717}
-                height={916}
-              />
-            </picture>
-          </div>
-        </ParallaxLayer>
-      </div>
+        {/* Tap/hover image — starts invisible, GSAP fades it in */}
+        <div
+          ref={stickRef}
+          className="absolute inset-0"
+          style={{ opacity: 0, visibility: "hidden" }}
+          aria-hidden="true"
+        >
+          <picture>
+            <source media="(max-width: 640px)" srcSet={heroStickSm} />
+            <img
+              src={heroStickLg}
+              alt=""
+              className="h-full w-full object-cover object-center"
+              loading="lazy"
+              width={1717}
+              height={916}
+            />
+          </picture>
+        </div>
+      </ParallaxLayer>
 
-      {/* Bottom gradient scrim for text legibility — desktop overlay only */}
+      {/* Gradient scrim for text legibility */}
       <div
-        className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-[#2a3510]/80 via-[#2a3510]/10 to-transparent sm:block"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#2a3510]/80 via-[#2a3510]/10 to-transparent"
         aria-hidden="true"
       />
 
-      {/* Content — on mobile: below image with brand-dark bg; on desktop: overlay at bottom */}
-      <div className="relative w-full bg-[#2a3510] px-5 pb-10 pt-8 sm:mx-auto sm:max-w-[1600px] sm:bg-transparent sm:px-8 sm:pb-20 sm:pt-40 lg:px-12">
-        {/* Text block — fades out on hover/tap */}
+      {/* Content overlaid at the bottom */}
+      <div className="relative mx-auto w-full max-w-[1600px] px-5 pb-14 sm:px-8 sm:pb-20 sm:pt-40 lg:px-12">
         <div ref={textRef}>
           <Heading as="h1" size="xl" className="max-w-3xl text-white">
             This is Mateada. Mate made simple.
@@ -160,7 +157,6 @@ export function Hero() {
           </RevealText>
         </div>
 
-        {/* CTA button — always visible */}
         <div className="mt-10">
           <Button
             variant="invert"

@@ -28,13 +28,13 @@ export function SiteFooter() {
         </nav>
 
         <p className="max-w-xs text-sm uppercase tracking-[0.16em] text-primary-foreground/60">
-          Made for modern life — from Europe, inspired by nature.
+          Made for modern life. Inspired by nature.
         </p>
       </div>
 
       <div className="mx-auto mt-12 flex max-w-[1600px] flex-col gap-2 border-t border-primary-foreground/10 pt-6 text-xs uppercase tracking-[0.14em] text-primary-foreground/50 sm:flex-row sm:items-center sm:justify-between">
         <p>© {new Date().getFullYear()} Mateada. All rights reserved.</p>
-        <p>Misiones, Argentina — made for Europe.</p>
+        <p>From Misiones, Argentina to you.</p>
       </div>
     </footer>
   );

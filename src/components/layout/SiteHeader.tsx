@@ -81,7 +81,7 @@ export function SiteHeader() {
               src={logoUrl}
               alt="Mateada"
               className={cn(
-                "h-14 w-auto transition-[filter] duration-500 sm:h-16 md:h-20 xl:h-24 2xl:h-28",
+                "h-16 w-auto transition-[filter] duration-500 sm:h-20 md:h-20 xl:h-24 2xl:h-28",
                 !scrolled ? "[filter:brightness(0)_invert(1)]" : "[filter:none]",
               )}
               width={600}
