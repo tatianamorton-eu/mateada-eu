@@ -43,7 +43,7 @@ export function SiteHeader() {
   // hamburger menu, which is always reachable at every viewport width.
   const navItems: NavItemDef[] = [
     ...headerNavItems,
-    { label: "For Cafés, Studios & Distributors", onClick: () => setB2bOpen(true) },
+    { label: "Business Inquiries", onClick: () => setB2bOpen(true) },
   ];
 
   const linkClass = cn(
@@ -81,7 +81,7 @@ export function SiteHeader() {
               src={logoUrl}
               alt="Mateada"
               className={cn(
-                "h-16 w-auto transition-[filter] duration-500 sm:h-20 md:h-20 xl:h-24 2xl:h-28",
+                "h-20 w-auto transition-[filter] duration-500 sm:h-24 md:h-28 xl:h-32 2xl:h-36",
                 !scrolled ? "[filter:brightness(0)_invert(1)]" : "[filter:none]",
               )}
               width={600}
@@ -113,7 +113,7 @@ export function SiteHeader() {
               onClick={() => setB2bOpen(true)}
               className={linkClass}
             >
-              For Cafés, Studios & Distributors
+              Business Inquiries
               <span className={underlineClass} />
             </button>
           </nav>
