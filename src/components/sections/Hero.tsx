@@ -11,6 +11,7 @@ import heroPathLg from "@/assets/brand/hero-path-lg.webp";
 import heroPathSm from "@/assets/brand/hero-path-sm.webp";
 import heroStickLg from "@/assets/brand/hero-stick-lg.webp";
 import heroStickSm from "@/assets/brand/hero-stick-sm.webp";
+import heroStickMobile from "@/assets/brand/hero-stick-mobile.png";
 
 export function Hero() {
   const scrollTo = useScrollToHash();
@@ -123,7 +124,8 @@ export function Hero() {
           aria-hidden="true"
         >
           <picture>
-            <source media="(max-width: 640px)" srcSet={heroStickSm} />
+            {/* Portrait-optimised mobile image: 853×1844, matches phone aspect ratio exactly */}
+            <source media="(max-width: 640px)" srcSet={heroStickMobile} type="image/png" />
             <img
               src={heroStickLg}
               alt=""
