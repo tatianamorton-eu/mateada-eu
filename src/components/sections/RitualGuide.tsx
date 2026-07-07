@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ─── data ─────────────────────────────────────────────────────────────────────
 
-const TABS = ["Mateada Latte", "Traditional Mateada", "Join the Movement"] as const;
+const TABS = ["Mateada Ritual", "Mateada Latte", "Traditional Mateada", "Join the Movement"] as const;
 type Tab = (typeof TABS)[number];
 
 const RECIPES: Record<Extract<Tab, "Traditional Mateada" | "Mateada Latte">, string[]> = {
@@ -123,7 +123,7 @@ function MovementPanel({ visible }: { visible: boolean }) {
 // ─── main ─────────────────────────────────────────────────────────────────────
 
 export function RitualGuide() {
-  const [active, setActive] = React.useState<Tab>("Mateada Latte");
+  const [active, setActive] = React.useState<Tab>("Mateada Ritual");
   const sectionRef = React.useRef<HTMLElement>(null);
   const headingRef = React.useRef<HTMLHeadingElement>(null);
   const tabsRef = React.useRef<HTMLDivElement>(null);
@@ -233,6 +233,11 @@ export function RitualGuide() {
             )}
           >
             <VideoPanel
+              src="/videos/mateada-ritual.mp4"
+              label="Mateada ritual"
+              visible={active === "Mateada Ritual"}
+            />
+            <VideoPanel
               src="/videos/classic-mateada.mp4"
               label="Traditional Mateada preparation"
               visible={active === "Traditional Mateada"}
@@ -245,6 +250,12 @@ export function RitualGuide() {
             <MovementPanel visible={active === "Join the Movement"} />
           </div>
         </div>
+
+        {active === "Mateada Ritual" && (
+          <p className="mt-4 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            Fuel yourself differently
+          </p>
+        )}
       </div>
     </section>
   );
